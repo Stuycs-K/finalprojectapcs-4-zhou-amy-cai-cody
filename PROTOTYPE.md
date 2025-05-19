@@ -1,11 +1,13 @@
+# APCS Final Project
+## Technical Details:
 
-# Technical Details:
+Period 4
+**Group Members**: Amy Zhou, Cody Cai
+**Group Name**: OptiX
 
-(CHANGE THIS!!!!!)
-
-A description of your technical design. This should include: 
-   
-How you will be using the topics covered in class in the project.
+## Project Discription 
+We intend to model the interference of light through a diffraction simulator that provides a user interface of the interaction of light waves via three modes: single slit diffraction, double slit diffraction, and diffraction gratings. The detector screen and individual interferences of the light rays will be visible, and the user will be able to customize factors that influence diffraction, namely wavelength of light, distance to screen, and distance between slits (if applicable). It uses the formula dsin(θ) = mλ to model the detector screen pattern and y(x,t) = 2Acos
+We intend to model the interference of light through a diffraction simulator that provides a user interface of the interaction of light waves via three modes: single slit diffraction, double slit diffraction, and diffraction gratings. The detector screen and individual interferences of the light rays will be visible, and the user will be able to customize factors that influence diffraction, namely wavelength of light, distance to screen, and distance between slits (if applicable). It uses the formula dsin(θ) = mλ to model the detector screen pattern and y(x,t) = 2Acos(φ)sin(kx-ωt+φ) to model the interference between two light waves. 
      
 # Project Design
 
