@@ -2,7 +2,7 @@
 
 This document must be updated daily every time you finish a work session.
 
-## Amy Zhou ~CHANGE THE NAME FOOL!~
+## Amy Zhou
 
 ### 2025-05-19 Description & Developmental Stages 
 - One class period spent on description of prototype
