@@ -26,9 +26,10 @@ Stage 1: Develop Formulas to Model Diffraction (2 days)
 
 Stage 2: Develop Individual Classes (2 days)
 ~- Calculation classes~
-- Light ray / wave classes
+- Light ~ray /~ wave classes (updated)
 - Detector class
 - Slits class
+- We will begin developing classes to work with single slit diffraction, adding updated modes afterwards (new)
 
 Stage 3: Wave Interference Interface (4 days)
 - Show how light waves interact with each other on Processing
