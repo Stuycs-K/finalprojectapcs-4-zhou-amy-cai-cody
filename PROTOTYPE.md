@@ -14,7 +14,7 @@ UML Diagrams and descriptions of key algorithms, classes, and how things fit tog
  Most recent UML Diagram (updated): 
  ![UML Diagram](/imgs/uml_v2.png)
 
- ![UML Diagram](/imgs/uml_v1.png)
+ ![UML Diagram (old)](/imgs/uml_v1.png)
 
 This is what we hope the finished product will look like:
 
