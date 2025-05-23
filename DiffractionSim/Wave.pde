@@ -13,9 +13,14 @@ class Wave {
     frequency = speed / wavelength;
   }
   
-  float getPhase(float x, float y) {
+  float getPhase(float x, float y, float time) {
+    float distance = dist(source.x, source.y, x, y);
+    float k = TWO_PI / wavelength;
+    float omega = TWO_PI * frequency; 
+    return k * distance - omega * time;
   }
   
   float getAmplitude(float x, float y) {
+    return 0.0;
   }
 }
