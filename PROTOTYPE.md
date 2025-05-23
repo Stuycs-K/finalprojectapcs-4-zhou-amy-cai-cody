@@ -11,10 +11,11 @@ We intend to model the interference of light through a diffraction simulator tha
 # Project Design
 
 UML Diagrams and descriptions of key algorithms, classes, and how things fit together. <br/>
- Most recent UML Diagram (updated): 
+ Most recent UML Diagram (updated):
+ ![UML Diagram](/imgs/uml_v3.png) <br/>
+ Old UML Diagrams:  
  ![UML Diagram](/imgs/uml_v2.png)
-
- ![UML Diagram (old)](/imgs/uml_v1.png)
+ ![UML Diagram](/imgs/uml_v1.png)
 
 This is what we hope the finished product will look like:
 
