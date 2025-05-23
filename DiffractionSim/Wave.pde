@@ -20,7 +20,8 @@ class Wave {
     return k * distance - omega * time;
   }
   
-  float getAmplitude(float x, float y) {
-    return 0.0;
+  float getDispl(float x, float y, float time) {
+    float phase = getPhase(x, y, time);
+    return amplitude * sin(phase);
   }
 }
