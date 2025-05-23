@@ -36,7 +36,7 @@ Stage 2: Develop Individual Classes
 - We will begin developing classes to work with single slit diffraction, adding updated modes afterwards (new)
 
 Stage 3: Wave Interference Interface ~(4 days)~
-- 5/30 Show how light waves interact with each other on Processing
+- 5/29 Show how light waves interact with each other on Processing
 - Amy: integrate classes to make the interference display (new)
 - Cody: integrate classes to make the detector display (new)
 
@@ -45,11 +45,11 @@ Stage 3: Wave Interference Interface ~(4 days)~
 - Use diffraction formulas~
 
 Stage 4: Implementing Various Modes
-- 6/2, Cody: Create double slit diffraction mode 
+- 6/1, Cody: Create double slit diffraction mode 
 ~- The code development will begin with single slit diffraction, and if time permits, double slit diffraction~and diffraction gratings~ will be explored~
 ~- Apply equations to make other mode interfaces user friendly~
 
 Stage 6: Customizable Factors
-- 6/2, Amy: Add processes for user to customize factors that influence diffraction and interference patterns
-- 6/2, Amy: Explore different ways to take user input
-- 6/3, Amy: Update screen with ticks when the factor is changed 
+- 5/30, Amy: Add processes for user to customize factors that influence diffraction and interference patterns
+- 5/30, Amy: Explore different ways to take user input
+- 6/1, Amy: Update screen with ticks when the factor is changed 
