@@ -25,5 +25,6 @@ class Wave {
     return amplitude * sin(phase);
   }
   
-  float getAmplitude(){}
+  
+  
 }
