@@ -24,4 +24,6 @@ class Wave {
     float phase = getPhase(x, y, time);
     return amplitude * sin(phase);
   }
+  
+  float getAmplitude(){}
 }
