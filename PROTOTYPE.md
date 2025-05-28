@@ -12,8 +12,9 @@ We intend to model the interference of light through a diffraction simulator tha
 
 UML Diagrams and descriptions of key algorithms, classes, and how things fit together. <br/>
  Most recent UML Diagram (updated):
- ![UML Diagram](/imgs/uml_v3.png) <br/>
+ ![UML Diagram](/imgs/uml_v4.png) <br/>
  Old UML Diagrams:  
+ ![UML Diagram](/imgs/uml_v3.png)
  ![UML Diagram](/imgs/uml_v2.png)
  ![UML Diagram](/imgs/uml_v1.png)
 
@@ -31,7 +32,7 @@ Stage 2: Develop Individual Classes
 ~- Calculation classes~
 - 5/24, Amy: Light ~ray /~ wave classes (updated)
 - 5/27, Cody:  Detector class
-- ~Peaks class (new)~ 
+- ~Peaks class (new)~
 - 5/27, Amy: Slits class
 - 5/27, Amy: Interference Class (new)
 - We will begin developing classes to work with single slit diffraction, adding updated modes afterwards (new)
@@ -46,11 +47,11 @@ Stage 3: Wave Interference Interface ~(4 days)~
 - Use diffraction formulas~
 
 Stage 4: Implementing Various Modes
-- 6/1, Cody: Create double slit diffraction mode 
+- 6/1, Cody: Create double slit diffraction mode
 ~- The code development will begin with single slit diffraction, and if time permits, double slit diffraction~and diffraction gratings~ will be explored~
 ~- Apply equations to make other mode interfaces user friendly~
 
 Stage 6: Customizable Factors
 - 5/30, Amy: Add processes for user to customize factors that influence diffraction and interference patterns
 - 5/30, Amy: Explore different ways to take user input
-- 6/1, Amy: Update screen with ticks when the factor is changed 
+- 6/1, Amy: Update screen with ticks when the factor is changed
