@@ -1,7 +1,6 @@
 class Wave {
   PVector position, velocity;
   float wavelength;
-  float frequency;
   float speed;
   float amplitude;
   int WAVE_TYPE;
@@ -36,7 +35,7 @@ class Wave {
       line(position.x, 0, position.x, height);
     }
     if (WAVE_TYPE == SPHERICAL) {
-      circle(sourceX, sourceY, distance); 
+      circle(sourceX, sourceY, distance);
     }
   }
 
