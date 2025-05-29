@@ -10,8 +10,9 @@ class Interference {
     float phi = a.getPhase(x,y) - b.getPhase(x,y);
     return 2 * amp * Math.cos(phi / 2) * Math.sin(k * x - w * time + phi / 2);
   }
-  float getIntensity(Wave a, Wave b, int x, int time) {
-    return interfere(a,b,x,time).getIntensity()
+  
+  float getIntensity(Wave a, Wave b, int x, int time){
+    return interfere(a,b,x,time).getIntensity();
   }
   
   void display() {

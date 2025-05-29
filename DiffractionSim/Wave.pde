@@ -1,12 +1,11 @@
 class Wave {
   PVector position, velocity;
   float wavelength;
-  float frequency;
   float speed;
   float amplitude;
-  int WAVE_TYPE;
-  int PLANAR = 0;
-  int SPHERICAL = 1;
+  static int WAVE_TYPE;
+  static int PLANAR = 0;
+  static int SPHERICAL = 1;
 
   Wave (float x, float y, float wavelength, float speed, float amplitude, int type) {
     this.wavelength = wavelength;
