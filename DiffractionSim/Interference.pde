@@ -13,4 +13,9 @@ class Interference {
   float getIntensity(Wave a, Wave b, int x, int time) {
     return interfere(a,b,x,time).getIntensity()
   }
+  
+  void display() {
+    
+  }
+  
 }

@@ -13,7 +13,9 @@ class Detector {
      return 0.0;
   }
   
-  void display(){}
+  void display(){
+  
+  }
   
   
 }

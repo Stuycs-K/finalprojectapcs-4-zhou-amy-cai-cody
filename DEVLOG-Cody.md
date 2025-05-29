@@ -14,3 +14,7 @@ Created first version of the classes and methods we will implement for the diffr
 ### 2025-05-27 - UML and Code Skeletons
 
 Created the fourth version of our UML diagram according to today's suggestions in class. Added code skeletons according to new methods/plan of attack for the sim.
+
+### 2025-05-28 - Source and Wave Class
+
+After thinking about how we will produce spherical waves, I added a Source class for the source of the wavefronts and reworked the Wave class. These updates were also added to the UML.
