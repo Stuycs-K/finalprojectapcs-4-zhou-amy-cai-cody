@@ -4,7 +4,7 @@ int SINGLE_SLIT = 1;
 int DOUBLE_SLIT = 2;
 Detector detector;
 Slit slit;
-ArrayList<Wave> sources;
+ArrayList<Source> sources;
 
   void setup(){
     MODE = SINGLE_SLIT;
