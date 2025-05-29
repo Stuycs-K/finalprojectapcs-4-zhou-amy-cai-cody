@@ -7,6 +7,7 @@ class Wave {
   int WAVE_TYPE;
   int PLANAR = 0;
   int SPHERICAL = 1;
+  float distance = 0;
 
   Wave (float x, float y, float wavelength, float speed, float amplitude, int type) {
     this.wavelength = wavelength;
@@ -21,6 +22,11 @@ class Wave {
   // in code, treat like a ray; visually, it will be a planar/spherical wave
   void propagate() {
      position = new PVector(position, velocity);
+     distance += position.mag();
+  }
+
+  float getDist() {
+  	return distance;
   }
 
   void display(float sourceX, float sourceY, float distance) {
