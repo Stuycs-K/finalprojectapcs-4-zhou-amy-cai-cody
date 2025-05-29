@@ -1,6 +1,5 @@
 class Source {
-  float xpos
-  float ypos
+  float xpos, ypos;
   
   Source (float xpos, float ypos) {
     this.xpos = xpos;
@@ -8,7 +7,15 @@ class Source {
   }
   
   Wave generateWave() {
-     
+    
+  }
+  
+  float getX() {
+    return xpos; 
+  }
+  
+  float getY() {
+    return ypos; 
   }
   
   void display() {

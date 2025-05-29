@@ -1,7 +1,7 @@
 class Interference {
   ArrayList<Wave> waves;
-  int width;
-  int height;
+  int fringeWidth;
+  int fringeHeight;
   
   Wave interfere(Wave a, Wave b, int x, int time) {
     float amp = a.amplitude;
@@ -13,4 +13,9 @@ class Interference {
   float getIntensity(Wave a, Wave b, int x, int time) {
     return interfere(a,b,x,time).getIntensity()
   }
+  
+  void display() {
+    
+  }
+  
 }

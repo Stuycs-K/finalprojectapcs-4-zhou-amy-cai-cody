@@ -6,14 +6,15 @@ Period 4 <br/>
 **Group Name**: OptiX
 
 ## Project Discription
-We intend to model the interference of light through a diffraction simulator that provides a user interface of the interaction of light waves via two modes: single slit diffraction and double slit diffraction. The detector screen and individual interferences of the light rays will be visible, and the user will be able to customize factors that influence diffraction, namely wavelength of light, distance to screen, and distance between slits (if applicable). It uses the formula dsin(θ) = mλ to model the detector screen pattern and y(x,t) = 2Acos(φ)sin(kx-ωt+φ) to model the interference between two light waves.
+We intend to model the interference of light through a diffraction simulator that provides a user interface of the interaction of light waves via two modes: single slit diffraction and double slit diffraction. The detector screen and individual interferences of the light rays will be visible, and the user will be able to customize factors that influence diffraction, namely wavelength of light, distance to screen, and distance between slits (if applicable). It uses the formula dsin(θ) = mλ to model the detector screen pattern and y(x,t) = ~2Acos(φ)sin(kx-ωt+φ)~ Asin(kx-ωt+φ) to model the interference between two light waves.
 
 # Project Design
 
 UML Diagrams and descriptions of key algorithms, classes, and how things fit together. <br/>
  Most recent UML Diagram (updated):
- ![UML Diagram](/imgs/uml_v4.png) <br/>
+ ![UML Diagram](/imgs/uml_v5.png) <br/>
  Old UML Diagrams:  
+ ![UML Diagram](/imgs/uml_v4.png)
  ![UML Diagram](/imgs/uml_v3.png)
  ![UML Diagram](/imgs/uml_v2.png)
  ![UML Diagram](/imgs/uml_v1.png)
