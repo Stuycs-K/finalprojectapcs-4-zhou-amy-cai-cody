@@ -1,29 +1,27 @@
 class Wave {
+  PVector position, velocity;
   float wavelength;
   float frequency;
   float speed;
   float amplitude;
 
-  Wave (float wavelength, float speed, float amplitude) {
-    this.source = source;
+  Wave (float x, float y, float wavelength, float speed, float amplitude) {
     this.wavelength = wavelength;
     this.speed = speed;
     this.amplitude = amplitude;
     frequency = speed / wavelength;
+    position = new PVector(x, y);
+    velocity = new PVector(speed, speed);
   }
 
-  float getPhase(float x, float y, float time) {
-    float distance = dist(source.x, source.y, x, y);
-    float k = TWO_PI / wavelength;
-    float omega = TWO_PI * frequency;
-    return k * distance - omega * time;
+  // in code, treat like a ray; visually, it will be a spherical wave
+  void propagate() {
+     position = new PVector(position, velocity);
   }
 
-  float getDispl(float x, float y, float time) {
-    float phase = getPhase(x, y, time);
-    return amplitude * sin(phase);
+  void display(float sourceX, float sourceY, float distance) {
+    fill(255);
+    circle(sourceX, sourceY, distance);
   }
-
-
 
 }
