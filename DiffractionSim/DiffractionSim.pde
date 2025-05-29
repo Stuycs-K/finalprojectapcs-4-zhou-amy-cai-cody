@@ -12,5 +12,5 @@ ArrayList<Source> sources;
     Slit slit = new Slit();
   }
   void draw(){}
-  
+
 }
