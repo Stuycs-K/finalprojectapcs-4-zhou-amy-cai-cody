@@ -21,3 +21,6 @@ This document must be updated daily every time you finish a work session.
 
 ### 2025-05-28 - Worked on Detector class
 - Spent 20 mins in class, 20 mins outside class creating method to create peaks for detector
+
+### 2025-05-29 - Worked on Detector class
+- Class period working on detector class & color hex algorithm given wavelength
