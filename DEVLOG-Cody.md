@@ -18,3 +18,7 @@ Created the fourth version of our UML diagram according to today's suggestions i
 ### 2025-05-28 - Source and Wave Class
 
 After thinking about how we will produce spherical waves, I added a Source class for the source of the wavefronts and reworked the Wave class. These updates were also added to the UML.
+
+### 2025-05-29 - Wave Types and Displays
+
+Wrote the display methods for Source and Wave whilst also creating two types of waves which will be created in the simulation: spherical and planar waves.
