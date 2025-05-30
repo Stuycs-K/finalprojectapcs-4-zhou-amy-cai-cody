@@ -9,10 +9,10 @@ class Interference {
   		if (waves.get(i).getAmp(x,y,t) == 0) {
   			return 0;
   		}
-  		float+=waves.get(i).getAmp(x,y,t);
+  		instAmp+=waves.get(i).getAmp(x,y,t);
   	}
   	return instAmp;
-  }  
+  }
   
   void display() {
   }
