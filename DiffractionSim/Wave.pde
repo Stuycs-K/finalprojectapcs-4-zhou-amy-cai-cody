@@ -38,6 +38,11 @@ class Wave {
   float getAmp(float x, float y, float t) {
   	return amplitude * sin (getPhase(x,y) - frequency * t);
   }
+  
+  void changeType() {
+    WAVE_TYPE++;
+    WAVE_TYPE%=2;
+  }
 
   void display(float sourceX, float sourceY, float distance) {
     fill(255);

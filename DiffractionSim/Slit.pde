@@ -8,7 +8,12 @@ class Slit {
   }
 
   ArrayList<Source> generateSources(float x, float y){
-    
+    ArrayList<Source> sources = new ArrayList<Source>();
+    for (int i = 0; i < numSlits; i++) {
+      Source source = new Source(x, y);
+      sources.add(source);
+    }
+    return sources;
   }
   
   void display(){
