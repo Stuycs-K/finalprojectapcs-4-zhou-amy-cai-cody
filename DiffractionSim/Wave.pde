@@ -51,7 +51,7 @@ class Wave {
   }
   // in code, treat like a ray; visually, it will be a planar/spherical wave
   void propagate() {
-     position = new PVector(position, velocity);
+     position = PVector.add(position, velocity);
      distance += position.mag();
   }
 
