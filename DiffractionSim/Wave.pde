@@ -9,6 +9,7 @@ class Wave {
   int PLANAR = 0;
   int SPHERICAL = 1;
   float distance = 0;
+  color c;
 
   Wave (float x, float y, float wavelength, float speed, float amplitude, int type) {
     this.wavelength = wavelength;
@@ -19,8 +20,35 @@ class Wave {
     position = new PVector(x, y);
     velocity = new PVector(speed, speed);
     WAVE_TYPE = type;
+    //code for wavelength --> hex
+    float r = 0.0;
+    float g = 0.0;
+    float b = 0.0;
+    float w = wavelength;
+    if (380 <= w && w < 400) {
+    	r = -(w-440) / (440-380);
+    	b = 1.0;
+    }
+    else if (w < 490) {
+    	g = (w-440) / (490-440);
+    	b = 1.0;
+    }
+    else if (w < 510) {
+    	g = 1.0;
+    	b = -(w-510)/(510-490);
+    }
+    else if (w < 580) {
+    	r = (w-510) / (580-510);
+    	g = 1.0;
+    }
+    else {
+    	r = 1.0;
+    }
+    c = color(r,g,b);
   }
-
+  color getColor() {
+  	return c;
+  }
   // in code, treat like a ray; visually, it will be a planar/spherical wave
   void propagate() {
      position = new PVector(position, velocity);
