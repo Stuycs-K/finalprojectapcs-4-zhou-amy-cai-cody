@@ -4,6 +4,10 @@ class Detector {
   ArrayList<Wave> waves;
   color c;
   
+  Detector() {
+     
+  }
+
   float getIntensity(int x, int y){
      float phase = waves.get(0).getDist() - waves.get(1).getDist();
      float wavelength = waves.get(0).wavelength;
@@ -13,7 +17,7 @@ class Detector {
      }
      return 0.0;
   }
-  
+
   void display(int x, int y){
   	float intensity = getIntensity(x, y);
   	if (intensity != 0) {
@@ -21,6 +25,5 @@ class Detector {
   		rect(x, y, x+20, y+30);
   	}
   }
-  
-  
+
 }

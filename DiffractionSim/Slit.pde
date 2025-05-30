@@ -7,8 +7,8 @@ class Slit {
     this.slitDistance = slitDistance;
   }
 
-  ArrayList<Source> generateSources(float x, float y){
-    
+  Source generateSource(float x, float y){
+    return new Source(x, y);
   }
   
   void display(){
