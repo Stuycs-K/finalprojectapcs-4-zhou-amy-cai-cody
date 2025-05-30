@@ -6,13 +6,15 @@ class Interference {
   float getAmp(float x, float y ,float t) {
   	float instAmp = 0;
   	for (int i = 0; i < waves.size(); i++) {
+  		if (waves.get(i).getAmp(x,y,t) == 0) {
+  			return 0;
+  		}
   		float+=waves.get(i).getAmp(x,y,t);
   	}
   	return instAmp;
   }  
   
   void display() {
-    
   }
   
 }
