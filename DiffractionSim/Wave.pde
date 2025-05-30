@@ -3,6 +3,7 @@ class Wave {
   float wavelength;
   float speed;
   float amplitude;
+  float maxAmplitude;
   float frequency;
   int WAVE_TYPE;
   int PLANAR = 0;
@@ -12,6 +13,7 @@ class Wave {
   Wave (float x, float y, float wavelength, float speed, float amplitude, int type) {
     this.wavelength = wavelength;
     this.speed = speed;
+    this.maxAmplitude = amplitude;
     this.amplitude = amplitude;
     frequency = speed / wavelength;
     position = new PVector(x, y);
@@ -44,13 +46,18 @@ class Wave {
     WAVE_TYPE%=2;
   }
 
+  void setAmp(float amp) {
+  	amplitude = amp;
+  }
+
   void display(float sourceX, float sourceY, float distance) {
     fill(255);
-    stroke(0);
+    stroke(c, amplitude/maxAmplitude);
     if (WAVE_TYPE == PLANAR) {
       line(position.x, 0, position.x, height);
     }
     if (WAVE_TYPE == SPHERICAL) {
+    
       circle(sourceX, sourceY, distance);
     }
   }
