@@ -46,7 +46,9 @@ class Wave {
     }
     c = color(r,g,b);
   }
-
+  color getColor() {
+  	return c;
+  }
   // in code, treat like a ray; visually, it will be a planar/spherical wave
   void propagate() {
      position = new PVector(position, velocity);

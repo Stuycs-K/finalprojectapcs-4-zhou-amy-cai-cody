@@ -1,11 +1,14 @@
 class Detector {
-  float[][] data;
   float distance;
   ArrayList<Wave> waves;
   color c;
   
-  Detector() {
-     
+  Detector(float distance, ArrayList<Wave> waves ) {
+     fill(0);
+     rect(distance, 0, WIDTH, HEIGHT);
+     this.distance = distance;
+     this.waves = waves;
+     c = waves.getColor();
   }
 
   float getIntensity(int x, int y){
