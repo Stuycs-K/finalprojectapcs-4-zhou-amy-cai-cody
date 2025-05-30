@@ -2,18 +2,14 @@ class Interference {
   ArrayList<Wave> waves;
   int fringeWidth;
   int fringeHeight;
-  
-  Wave interfere(Wave a, Wave b, int x, int time) {
-    float amp = a.amplitude;
-    float w = TWO_PI * a.frequency;
-    float w = TWO_PI / a.wavelength;
-    float phi = a.getPhase(x,y) - b.getPhase(x,y);
-    return 2 * amp * Math.cos(phi / 2) * Math.sin(k * x - w * time + phi / 2);
-  }
-  
-  float getIntensity(Wave a, Wave b, int x, int time){
-    return interfere(a,b,x,time).getIntensity();
-  }
+
+  float getAmp(float x, float y ,float t) {
+  	float instAmp = 0;
+  	for (int i = 0; i < waves.size(); i++) {
+  		float+=waves.get(i).getAmp(x,y,t);
+  	}
+  	return instAmp;
+  }  
   
   void display() {
     
