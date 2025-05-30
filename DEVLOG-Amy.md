@@ -24,3 +24,4 @@ This document must be updated daily every time you finish a work session.
 
 ### 2025-05-29 - Worked on Detector class
 - Class period working on detector class & color hex algorithm given wavelength
+- 30 mins homework time working on interference and wave amplitude calculations
