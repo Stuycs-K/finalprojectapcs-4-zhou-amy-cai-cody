@@ -11,7 +11,7 @@ class Detector {
   	float b = 0.0;
   	float wl = waves.get(0).wavelength;
   	if (380 <= w && w < 400) {
-  		r = -(w - 440) / 440 -380);
+  		r = -(w - 440) / 440 - 380);
   		g = 0.0;
   		b = 1.0;
   	}

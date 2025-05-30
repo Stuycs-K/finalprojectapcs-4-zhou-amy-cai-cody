@@ -7,9 +7,11 @@ class Diffraction {
   ArrayList<Source> sources;
 
   void setup(){
+    // set the mode, display initial source, slits, and detector
     MODE = SINGLE_SLIT;
-    Detector detector = new Detector();
-    Slit slit = new Slit();
+    detector = new Detector();
+    slit = new Slit();
+    sources.add(new Source(0, height/2));
   }
   void draw(){
     

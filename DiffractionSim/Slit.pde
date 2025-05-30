@@ -7,13 +7,8 @@ class Slit {
     this.slitDistance = slitDistance;
   }
 
-  ArrayList<Source> generateSources(float x, float y){
-    ArrayList<Source> sources = new ArrayList<Source>();
-    for (int i = 0; i < numSlits; i++) {
-      Source source = new Source(x, y);
-      sources.add(source);
-    }
-    return sources;
+  Source generateSource(float x, float y){
+    return new Source(x, y);
   }
   
   void display(){
