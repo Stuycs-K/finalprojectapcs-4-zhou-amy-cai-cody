@@ -48,7 +48,7 @@ class Detector {
      }
      return 0.0;
   }
-  
+
   void display(int x, int y){
   	float intensity = getIntensity(x, y);
   	if (intensity != 0) {
@@ -56,6 +56,6 @@ class Detector {
   		rect(x, y, x+20, y+30);
   	}
   }
-  
-  
+
+
 }
