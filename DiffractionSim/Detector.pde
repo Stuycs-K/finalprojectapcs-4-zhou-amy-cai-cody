@@ -12,7 +12,7 @@ class Detector {
      float phase = waves.get(0).getDist() - waves.get(1).getDist();
      float wavelength = waves.get(0).wavelength;
      if (Math.abs(phase/wavelength - (int)(phase/wavelength)) < 0.25) {
-       Wave newWave = Interference.interfere(waves.get(0), waves.get(1), x, y);
+       Wave newWave = Interference.getAmp(waves.get(0), waves.get(1), x, y);
        return newWave.amplitude * newWave.amplitude;
      }
      return 0.0;
