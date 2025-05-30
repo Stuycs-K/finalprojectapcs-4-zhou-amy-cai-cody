@@ -3,6 +3,7 @@ class Wave {
   float wavelength;
   float speed;
   float amplitude;
+  float frequency;
   int WAVE_TYPE;
   int PLANAR = 0;
   int SPHERICAL = 1;
@@ -26,6 +27,16 @@ class Wave {
 
   float getDist() {
   	return distance;
+  }
+
+  float getPhase(float x, float y) {
+  	float r = dist(x,y,position.x, position.y);
+  	float k = TWO_PI / wavelength;
+  	return k * r;
+  }
+
+  float getAmp(float x, float y, float t) {
+  	return amplitude * sin (getPhase(x,y) - frequency * t);
   }
 
   void display(float sourceX, float sourceY, float distance) {
