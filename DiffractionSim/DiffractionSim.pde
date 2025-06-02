@@ -8,7 +8,7 @@ ArrayList<Wave> waves;
 
 void setup(){
   // set the mode, display initial source, slits, and detector
-  size(1200,900);
+  size(1200,600);
   MODE = SINGLE_SLIT;
   sources = new ArrayList<Source>();
   waves = new ArrayList<Wave>();
@@ -28,5 +28,10 @@ void setup(){
 }
   
 void draw(){
-  
+  background(0);
+  for (Wave w: waves) {
+    w.propagate();
+  }
+  slit.display();
+  detector.display();
 }
