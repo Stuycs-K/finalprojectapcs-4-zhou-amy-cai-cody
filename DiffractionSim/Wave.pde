@@ -6,8 +6,8 @@ class Wave {
   float maxAmplitude;
   float frequency;
   int WAVE_TYPE;
-  int PLANAR = 0;
-  int SPHERICAL = 1;
+  static final int PLANAR = 0;
+  static final int SPHERICAL = 1;
   float distance = 0;
   color c;
 
@@ -18,7 +18,7 @@ class Wave {
     this.amplitude = amplitude;
     frequency = speed / wavelength;
     position = new PVector(x, y);
-    velocity = new PVector(speed, speed);
+    velocity = new PVector(1, 0);
     WAVE_TYPE = type;
     //code for wavelength --> hex
     float r = 0.0;
@@ -44,7 +44,7 @@ class Wave {
     else {
     	r = 1.0;
     }
-    c = color(r,g,b);
+    c = color(r*255,g*255,b*255);
   }
   color getColor() {
   	return c;
@@ -52,7 +52,7 @@ class Wave {
   // in code, treat like a ray; visually, it will be a planar/spherical wave
   void propagate() {
      position = PVector.add(position, velocity);
-     distance += position.mag();
+     distance += velocity.mag();
   }
 
   float getDist() {
@@ -79,13 +79,12 @@ class Wave {
   }
 
   void display(float sourceX, float sourceY, float distance) {
-    fill(255);
+    noFill();
     stroke(c, amplitude/maxAmplitude);
     if (WAVE_TYPE == PLANAR) {
       line(position.x, 0, position.x, height);
     }
     if (WAVE_TYPE == SPHERICAL) {
-    
       circle(sourceX, sourceY, distance);
     }
   }
