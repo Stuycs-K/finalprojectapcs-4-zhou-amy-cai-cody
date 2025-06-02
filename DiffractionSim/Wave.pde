@@ -88,5 +88,9 @@ class Wave {
       circle(sourceX, sourceY, distance);
     }
   }
+  
+  boolean hitSlit() {
+    return (position.x >= width /2 && position.x < width/2 + 20);
+  }
 
 }
