@@ -113,7 +113,7 @@ class Wave {
   
   boolean hitSlit() {
     if (converted || WAVE_TYPE == SPHERICAL) return false;
-    return (position.x >= width /3 && position.x < width/3 + 20);
+    return (position.x >= width /3 && position.x < width/3 + 20 && abs(position.y - height/2) < 50);
   }
 
 }
