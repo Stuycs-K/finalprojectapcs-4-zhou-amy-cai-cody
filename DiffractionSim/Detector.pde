@@ -3,22 +3,18 @@ class Detector {
   ArrayList<Wave> waves;
   color c;
   
-  Detector(float distance, ArrayList<Wave> waves ) {
-     fill(0);
-     rect(distance, 0, WIDTH, HEIGHT);
+  Detector(float distance, ArrayList<Wave> wave ) {
      this.distance = distance;
      this.waves = waves;
-     c = waves.getColor();
+     c = waves.get(0).getColor();
   }
 
   float getIntensity(int x, int y){
-     float phase = waves.get(0).getDist() - waves.get(1).getDist();
-     float wavelength = waves.get(0).wavelength;
-     if (Math.abs(phase/wavelength - (int)(phase/wavelength)) < 0.25) {
-       Wave newWave = Interference.getAmp(waves.get(0), waves.get(1), x, y);
-       return newWave.amplitude * newWave.amplitude;
-     }
-     return 0.0;
+    float amp = 0;
+    for (Wave w : waves) {
+      amp += w.getAmp(x,y,millis() / 1000.0);
+    }
+    return amp * amp;
   }
 
   void display(int x, int y){
