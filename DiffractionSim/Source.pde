@@ -10,7 +10,7 @@ class Source {
   
   // filler values for wave
   void generateWave(int type) {
-    Wave wave = new Wave(xpos, ypos, 1, 1, 1, type);
+    Wave wave = new Wave(xpos, ypos, 1, 1, 1, type, millis()/1000.0);
     waves.add(wave);
   }
   
@@ -26,6 +26,9 @@ class Source {
     fill(0, 255, 255);
     noStroke();
     circle(xpos, ypos, 10);
+    for (Wave w: waves) {
+      w.display(millis() / 1000.0);
+    }
   }
   
 }

@@ -23,7 +23,7 @@ class Detector {
       float brightness = 255 * intensity;
       stroke(brightness);
       fill(c);
-      line(width-10,y,width,y);
+      line(width-100,y,width,y);
     //for (int i = (int)distance; i < width; i++) {
       //for (int j = 0; j < height; j++) {
         //float intensity = getIntensity(x,y);
