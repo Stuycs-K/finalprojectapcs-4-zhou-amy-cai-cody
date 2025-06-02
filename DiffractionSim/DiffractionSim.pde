@@ -9,7 +9,7 @@ float lastWave;
 
 void setup(){
   // set the mode, display initial source, slits, and detector
-  size(1200,600);
+  size(600,600);
   MODE = SINGLE_SLIT;
   sources = new ArrayList<Source>();
   waves = new ArrayList<Wave>();
@@ -31,6 +31,12 @@ void setup(){
   
 void draw(){
   background(0);
+  if (millis() - lastWave > 300) {
+    for (Source s : sources) {
+      s.generateWave();
+    }
+    lastWave = millis();
+  }
   for (int i = 0; i < waves.size(); i++) {
     Wave w = waves.get(i);
     w.propagate(millis() / 1000.0);
