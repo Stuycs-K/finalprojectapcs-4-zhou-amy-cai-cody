@@ -19,6 +19,14 @@ class Slit {
         rect(width/3, 0, 20, height/2-10);
         rect(width/3, height/2+10, 20, height);
      }
+     if (MODE == DOUBLE_SLIT) {
+       noStroke();
+       fill(196,164,132);
+       rectMode(CORNER);
+       rect(width/3,0,20,height/2-75);
+       rect(width/3,height/2-35,20,60);
+       rect(width/3,height/2+75,20,height/2-75);
+     }
   }
 
 }
