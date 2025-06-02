@@ -11,6 +11,8 @@ class Wave {
   float distance = 0;
   color c;
   float time;
+  boolean converted = false;
+  boolean active = true;
 
   Wave (float x, float y, float wavelength, float speed, float amplitude, int type, float t) {
     this.wavelength = wavelength;
@@ -20,7 +22,7 @@ class Wave {
     frequency = speed / wavelength;
     position = new PVector(x, y);
     originalPos = new PVector(x,y);
-    velocity = new PVector(1, 0);
+    velocity = new PVector(speed, 0);
     WAVE_TYPE = type;
     this.time = t;
     //code for wavelength --> hex
@@ -80,7 +82,7 @@ class Wave {
     }
   	else {
       float r = dist(x,y,originalPos.x, originalPos.y);
-      float amp = amplitude / max(1,r);
+      float amp = amplitude / max(1,r*0.1);
       return amp * sin(getPhase(x,y) - frequency * (t-time));
     }
   }
@@ -97,7 +99,8 @@ class Wave {
   void display(float t) {
     propagate(t);
     noFill();
-    stroke(c, amplitude/maxAmplitude);
+    stroke(c);
+    //stroke(c, amplitude/maxAmplitude);
     if (WAVE_TYPE == PLANAR) {
       float xPos = originalPos.x + velocity.x * (t-time);
       line(xPos, 0, xPos, height);
@@ -109,7 +112,8 @@ class Wave {
   }
   
   boolean hitSlit() {
-    return (position.x >= width /2 && position.x < width/2 + 20);
+    if (converted || WAVE_TYPE == SPHERICAL) return false;
+    return (position.x >= width /3 && position.x < width/3 + 20 && abs(position.y - height/2) < 50);
   }
 
 }
