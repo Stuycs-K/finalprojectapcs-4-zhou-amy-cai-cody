@@ -42,15 +42,15 @@ void draw(){
     w.propagate(millis() / 1000.0);
     if (w.hitSlit()) {
       if (MODE == SINGLE_SLIT) {
-        Source newSource = slit.generateSource(width/3+10, w.position.y, 1);
+        Source newSource = slit.generateSource(width/2.5+10, w.position.y, 1);
         newSource.generateWave();
         sources.remove(0);
         sources.add(newSource);
         waves = newSource.waves;
       }
       else {
-        Source newSource1 = slit.generateSource(width/3+10, height/2-55, 1);
-        Source newSource2 = slit.generateSource(width/3+10, height/2+35, 1);
+        Source newSource1 = slit.generateSource(width/2.5+10, height/2-55, 1);
+        Source newSource2 = slit.generateSource(width/2.5+10, height/2+35, 1);
         newSource1.generateWave();
         newSource2.generateWave();
         sources.remove(0);
