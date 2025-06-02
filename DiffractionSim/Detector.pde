@@ -3,30 +3,35 @@ class Detector {
   ArrayList<Wave> waves;
   color c;
   
-  Detector(float distance, ArrayList<Wave> waves ) {
-     fill(0);
-     rect(distance, 0, WIDTH, HEIGHT);
+  Detector(float distance, ArrayList<Wave> wave ) {
      this.distance = distance;
-     this.waves = waves;
-     c = waves.getColor();
+     this.waves = wave;
+     c = waves.get(0).getColor();
   }
 
-  float getIntensity(int x, int y){
-     float phase = waves.get(0).getDist() - waves.get(1).getDist();
-     float wavelength = waves.get(0).wavelength;
-     if (Math.abs(phase/wavelength - (int)(phase/wavelength)) < 0.25) {
-       Wave newWave = Interference.getAmp(waves.get(0), waves.get(1), x, y);
-       return newWave.amplitude * newWave.amplitude;
-     }
-     return 0.0;
+  float getIntensity(float x, float y, float t){
+    float amp = 0;
+    for (Wave w : waves) {
+      amp += w.getAmp(x,y,t);
+    }
+    return amp * amp;
   }
 
-  void display(int x, int y){
-  	float intensity = getIntensity(x, y);
-  	if (intensity != 0) {
-  		fill(c);
-  		rect(x, y, x+20, y+30);
-  	}
+  void display(){
+    for (int y = 0; y < height; y++) {
+      float intensity = getIntensity(width-10,y, millis()/1000.0);
+      float brightness = 255 * intensity;
+      stroke(brightness);
+      fill(c);
+      line(width-100,y,width,y);
+    //for (int i = (int)distance; i < width; i++) {
+      //for (int j = 0; j < height; j++) {
+        //float intensity = getIntensity(x,y);
+        //float brightness = intensity * 5 % 255;
+        //stroke(brightness);
+        //fill(c);
+        //point(x,y);
+//      }
+    }
   }
-
 }
