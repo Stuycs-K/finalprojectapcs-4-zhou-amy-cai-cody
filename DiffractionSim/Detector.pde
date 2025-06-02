@@ -18,20 +18,11 @@ class Detector {
   }
 
   void display(){
-    for (int y = 0; y < height; y++) {
-      float intensity = getIntensity(width-10,y, millis()/1000.0);
-      float brightness = 255 * intensity;
-      stroke(brightness);
-      fill(c);
+    for (int y = 0; y < height; y+=2) {
+      float intensity = getIntensity(distance,y, millis()/1000.0);
+      float brightness = intensity * 255;
+      stroke(c,brightness);
       line(width-100,y,width,y);
-    //for (int i = (int)distance; i < width; i++) {
-      //for (int j = 0; j < height; j++) {
-        //float intensity = getIntensity(x,y);
-        //float brightness = intensity * 5 % 255;
-        //stroke(brightness);
-        //fill(c);
-        //point(x,y);
-//      }
     }
   }
 }
