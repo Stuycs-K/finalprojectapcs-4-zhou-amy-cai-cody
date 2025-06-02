@@ -15,8 +15,9 @@ class Slit {
      if (MODE == SINGLE_SLIT) {
         rectMode(CORNER);
         fill(196, 164, 132);
-        rect(width/2, 0, width/2 + 10, height/2-10);
-        rect(width/2, height/2+10, width/2 + 10, height);
+        noStroke();
+        rect(width/3, 0, 20, height/2-10);
+        rect(width/3, height/2+10, 20, height);
      }
   }
 
