@@ -5,6 +5,7 @@ class Source {
   Source (float xpos, float ypos) {
     this.xpos = xpos;
     this.ypos = ypos;
+    this.waves = new ArrayList<Wave>();
   }
   
   // filler values for wave
