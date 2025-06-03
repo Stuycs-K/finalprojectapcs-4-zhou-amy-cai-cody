@@ -9,7 +9,7 @@ Slit slit;
 
 void setup(){
   size(600, 600);
-  MODE = DOUBLE_SLIT;
+  MODE = SINGLE_SLIT;
   slit = new Slit(MODE, 1);
   slit.display();
   //// set the mode, display initial source, slits, and detector
@@ -36,7 +36,8 @@ void setup(){
 void draw(){
   background(0);
   Source source = new Source(0, height/2, 0);
-  Wave testWave = source.generateWave();
+    
+    Wave testWave = source.generateWave();
   for (int i = 0; i < 13; i++)
     testWave.propagate();
   if (testWave.hitSlit())
