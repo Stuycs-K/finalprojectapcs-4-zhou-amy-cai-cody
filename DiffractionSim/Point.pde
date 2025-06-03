@@ -12,10 +12,6 @@ class Point {
     position = PVector.add(position, velocity);
   }
   
-  void radiate() {
-    
-  }
-  
   float getPosition() {
     return position.x; 
   }

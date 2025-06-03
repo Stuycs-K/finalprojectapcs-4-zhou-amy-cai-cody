@@ -135,13 +135,8 @@ class Wave {
   }
   
   void propagate() {
-    if (WAVE_TYPE == PLANAR) {
-      for (Point point : points) {
-        point.move();
-      }
-    }
-    if (WAVE_TYPE == SPHERICAL) {
-      points.radiate(); 
+    for (Point point : points) {
+      point.move();
     }
   }
   
@@ -160,11 +155,20 @@ class Wave {
     for (int i = 0; i < numPoints; i++) {
       Point point;
       if (i % 2 == 0) {
-        point = new Point(width/2+10, height/2-55, 25, 10);
+        point = new Point(width/2+20, height/2-55, 25, 10);
       } else {
-        point = new Point(width/2+10, height/2+45, 25, 10);
+        point = new Point(width/2+20, height/2+45, 25, 10);
       }
+      point.velocity.rotate(HALF_PI);
       points.add(point);
+    }
+    int k = 1;
+    for (int i = 0; i < points.size(); i+=2) {
+      Point first = points.get(i);
+      Point second = points.get(i+1);
+      first.velocity.rotate(-((PI * k) / 30));
+      second.velocity.rotate(-((PI * k) / 30));
+      k++;
     }
   }
   

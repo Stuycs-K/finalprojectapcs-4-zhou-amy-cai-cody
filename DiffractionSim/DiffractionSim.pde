@@ -41,6 +41,8 @@ void draw(){
     testWave.propagate();
   if (testWave.hitSlit())
     testWave.changeType();
+  for (int i = 0; i < 5; i++)
+    testWave.propagate();
   testWave.display();
   slit.display();
   //if (millis() - lastWave > 300) {
