@@ -25,3 +25,9 @@ This document must be updated daily every time you finish a work session.
 ### 2025-05-29 - Worked on Detector class
 - Class period working on detector class & color hex algorithm given wavelength
 - 30 mins homework time working on interference and wave amplitude calculations
+
+### 2025-05-30 - Modified displaying Interference and Detector classes
+- Class period spent making detector and interference classes display patterns
+
+### 2025-06-01 - Moved project forwards to MVP 
+- 3 hours spent on editing classes and methods to make a functional user interface

@@ -1,16 +1,23 @@
 class Source {
   float xpos, ypos;
   ArrayList<Wave> waves;
+  int type = 0;
   
-  Source (float xpos, float ypos) {
+  Source (float xpos, float ypos, int type) {
     this.xpos = xpos;
     this.ypos = ypos;
+    this.waves = new ArrayList<Wave>();
+    this.type = type;
   }
   
   // filler values for wave
-  void generateWave(int type) {
-    Wave wave = new Wave(xpos, ypos, 1, 1, 1, type);
+  void generateWave() {
+    Wave wave = new Wave(xpos, ypos, 1, 50, 1, type, millis()/1000.0);
     waves.add(wave);
+  }
+  
+  void changeType () {
+    type = (type + 1) % 2;
   }
   
   float getX() {
@@ -22,9 +29,12 @@ class Source {
   }
   
   void display() {
-    fill(0, 255, 255);
+    noFill();
     noStroke();
     circle(xpos, ypos, 10);
+    for (Wave w: waves) {
+      w.display(millis() / 1000.0);
+    }
   }
   
 }
