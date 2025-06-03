@@ -7,25 +7,25 @@ class Slit {
     this.slitDistance = slitDistance;
   }
 
-  Source generateSource(float x, float y, int type){
-    return new Source(x, y, type);
+  Source generateSource(float x, float y, int waveType){
+    return new Source(x, y, waveType);
   }
 
   void display(){
      if (MODE == SINGLE_SLIT) {
-        rectMode(CORNER);
         noStroke();
         fill(196, 164, 132);
-        rect(width/2.5, 0, 20, height/2-10);
-        rect(width/2.5, height/2+10, 20, height);
+        rectMode(CORNER);
+        rect(width/2, 0, 20, height/2-10);
+        rect(width/2, height/2+10, 20, height/2-10);
      }
      if (MODE == DOUBLE_SLIT) {
        noStroke();
        fill(196,164,132);
        rectMode(CORNER);
-       rect(width/2.5, 0,20,height/2-75);
-       rect(width/2.5, height/2-35,20,60);
-       rect(width/2.5, height/2+75,20,height/2-75);
+       rect(width/2, 0,20,height/2-75);
+       rect(width/2, height/2-35,20,60);
+       rect(width/2, height/2+75,20,height/2-75);
      }
   }
 

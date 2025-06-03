@@ -1,68 +1,82 @@
 static int MODE;
 static int SINGLE_SLIT = 1;
 static int DOUBLE_SLIT = 2;
-Detector detector;
+//Detector detector;
 Slit slit;
-ArrayList<Source> sources;
-ArrayList<Wave> waves;
-float lastWave;
+//ArrayList<Source> sources;
+//ArrayList<Wave> waves;
+//float lastWave;
 
 void setup(){
-  // set the mode, display initial source, slits, and detector
-  size(600,600);
-  MODE = SINGLE_SLIT;
-  sources = new ArrayList<Source>();
-  waves = new ArrayList<Wave>();
-  Source original = new Source(0, height/2, 0);
-  original.generateWave();
-  sources.add(original);
-  lastWave = millis();
-  for (int i = 0; i < original.waves.size(); i++) {
-    waves.add(original.waves.get(i));
-  }
-  detector = new Detector(width, waves);
-  slit = new Slit(SINGLE_SLIT, 1);
-  //sources.add(new Source(0, height/2));
-  
-  detector.display();
+  size(600, 600);
+  MODE = DOUBLE_SLIT;
+  slit = new Slit(MODE, 1);
   slit.display();
-  sources.get(0).display();
+  //// set the mode, display initial source, slits, and detector
+  //size(600,600);
+  //MODE = SINGLE_SLIT;
+  //sources = new ArrayList<Source>();
+  //waves = new ArrayList<Wave>();
+  //Source original = new Source(0, height/2, 0);
+  //original.generateWave();
+  //sources.add(original);
+  //lastWave = millis();
+  //for (int i = 0; i < original.waves.size(); i++) {
+  //  waves.add(original.waves.get(i));
+  //}
+  //detector = new Detector(width, waves);
+  //slit = new Slit(SINGLE_SLIT, 1);
+  ////sources.add(new Source(0, height/2));
+  
+  //detector.display();
+  //slit.display();
+  //sources.get(0).display();
 }
   
 void draw(){
   background(0);
-  if (millis() - lastWave > 300) {
-    for (Source s : sources) {
-      s.generateWave();
-    }
-    lastWave = millis();
-  }
-  for (int i = 0; i < waves.size(); i++) {
-    Wave w = waves.get(i);
-    w.propagate(millis() / 1000.0);
-    if (w.hitSlit()) {
-      if (MODE == SINGLE_SLIT) {
-        Source newSource = slit.generateSource(width/2.5+10, w.position.y, 1);
-        newSource.generateWave();
-        sources.remove(0);
-        sources.add(newSource);
-        waves = newSource.waves;
-      }
-      else {
-        Source newSource1 = slit.generateSource(width/2.5+10, height/2-55, 1);
-        Source newSource2 = slit.generateSource(width/2.5+10, height/2+35, 1);
-        newSource1.generateWave();
-        newSource2.generateWave();
-        sources.remove(0);
-        sources.add(newSource1);
-        sources.add(newSource2);
-        waves = newSource1.waves;
-        for (Wave a : newSource2.waves) {
-          waves.add(a);
-        }
-      }
-    }
-  }
+  Source source = new Source(0, height/2, 0);
+  Wave testWave = source.generateWave();
+  for (int i = 0; i < 13; i++)
+    testWave.propagate();
+  if (testWave.hitSlit())
+    testWave.changeType();
+  for (int i = 0; i < 5; i++)
+    testWave.propagate();
+  testWave.display();
+  slit.display();
+  //if (millis() - lastWave > 300) {
+  //  for (Source s : sources) {
+  //    s.generateWave();
+  //  }
+  //  lastWave = millis();
+  //}
+  //for (int i = 0; i < waves.size(); i++) {
+  //  Wave w = waves.get(i);
+  //  w.propagate(millis() / 1000.0);
+  //  if (w.hitSlit()) {
+  //    if (MODE == SINGLE_SLIT) {
+  //      Source newSource = slit.generateSource(width/2.5+10, w.position.y, 1);
+  //      newSource.generateWave();
+  //      sources.remove(0);
+  //      sources.add(newSource);
+  //      waves = newSource.waves;
+  //    }
+  //    else {
+  //      Source newSource1 = slit.generateSource(width/2.5+10, height/2-55, 1);
+  //      Source newSource2 = slit.generateSource(width/2.5+10, height/2+35, 1);
+  //      newSource1.generateWave();
+  //      newSource2.generateWave();
+  //      sources.remove(0);
+  //      sources.add(newSource1);
+  //      sources.add(newSource2);
+  //      waves = newSource1.waves;
+  //      for (Wave a : newSource2.waves) {
+  //        waves.add(a);
+  //      }
+  //    }
+  //  }
+  //}
   /*ArrayList<Wave> newWaves = new ArrayList<Wave>();
   ArrayList<Source> newSources = new ArrayList<Source>();
   for (Wave w: waves) {
@@ -86,35 +100,35 @@ void draw(){
   for (int i = 0; i < newWaves.size(); i++) {
     waves.add(newWaves.get(i));
   }*/
-  for (Source s: sources) {
-    s.display();
-    for (Wave w: waves) {
-      w.display(millis() /1000.0);
-    }
-  }
-  slit.display();
-  detector.display();
+  //for (Source s: sources) {
+  //  s.display();
+  //  for (Wave w: waves) {
+  //    w.display(millis() /1000.0);
+  //  }
+  //}
+  //slit.display();
+  //detector.display();
 }
 
-void keyPressed() {
-  if (key == '1') {
-    MODE = SINGLE_SLIT;
-    reset();
-  }
-  else if (key == '2') {
-    MODE = DOUBLE_SLIT;
-    reset();
-  }
-}
+//void keyPressed() {
+//  if (key == '1') {
+//    MODE = SINGLE_SLIT;
+//    reset();
+//  }
+//  else if (key == '2') {
+//    MODE = DOUBLE_SLIT;
+//    reset();
+//  }
+//}
 
-void reset() {
-  sources = new ArrayList<Source>();
-  waves = new ArrayList<Wave>();
-  Source original = new Source (0, height/2, 0);
-  original.generateWave();
-  sources.add(original);
-  for (Wave w : original.waves) {
-    waves.add(w);
-  }
-  slit = new Slit(MODE, 1);
-}
+//void reset() {
+//  sources = new ArrayList<Source>();
+//  waves = new ArrayList<Wave>();
+//  Source original = new Source (0, height/2, 0);
+//  original.generateWave();
+//  sources.add(original);
+//  for (Wave w : original.waves) {
+//    waves.add(w);
+//  }
+//  slit = new Slit(MODE, 1);
+//}
