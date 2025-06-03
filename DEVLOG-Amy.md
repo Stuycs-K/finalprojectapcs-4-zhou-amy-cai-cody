@@ -31,3 +31,6 @@ This document must be updated daily every time you finish a work session.
 
 ### 2025-06-01 - Moved project forwards to MVP 
 - 3 hours spent on editing classes and methods to make a functional user interface
+
+### 2025-06-02 Worked on re-developing wave
+- Class period spent working on developing point class for wave
