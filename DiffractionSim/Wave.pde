@@ -135,7 +135,10 @@ class Wave {
   }
   
   void propagate() {
+    float r = dist(x,y,originalPos.x, originalPos.y);
+    float factor = 1/max(1,r*0.1);
     for (Point point : points) {
+      point.setAmp(point.getAmp * factor);
       point.move();
     }
   }
