@@ -127,7 +127,7 @@ class Wave {
   
   Wave(float startPos, int type){
     points = new ArrayList<Point>();
-    for (int i = 10; i < width; i+=10) {
+    for (int i = 0; i < width; i+=10) {
       Point point = new Point(startPos, i, 25, 10);
       points.add(point);
     }
@@ -135,10 +135,37 @@ class Wave {
   }
   
   void propagate() {
-    for (Point point : points) {
-      point.move();
+    if (WAVE_TYPE == PLANAR) {
+      for (Point point : points) {
+        point.move();
+      }
     }
-    display();
+    if (WAVE_TYPE == SPHERICAL) {
+      points.radiate(); 
+    }
+  }
+  
+  boolean hitSlit() {
+    if (WAVE_TYPE == SPHERICAL) {
+      return false;
+    }
+    float pos = points.get(0).getPosition();
+    return pos >= width/2;
+  }
+  
+  void changeType() {
+    WAVE_TYPE = SPHERICAL;
+    int numPoints = points.size();
+    points.clear();
+    for (int i = 0; i < numPoints; i++) {
+      Point point;
+      if (i % 2 == 0) {
+        point = new Point(width/2+10, height/2-55, 25, 10);
+      } else {
+        point = new Point(width/2+10, height/2+45, 25, 10);
+      }
+      points.add(point);
+    }
   }
   
   void display() {

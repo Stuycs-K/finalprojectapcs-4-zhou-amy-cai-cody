@@ -2,14 +2,16 @@ static int MODE;
 static int SINGLE_SLIT = 1;
 static int DOUBLE_SLIT = 2;
 //Detector detector;
-//Slit slit;
+Slit slit;
 //ArrayList<Source> sources;
 //ArrayList<Wave> waves;
 //float lastWave;
 
 void setup(){
   size(600, 600);
-  MODE = SINGLE_SLIT;
+  MODE = DOUBLE_SLIT;
+  slit = new Slit(MODE, 1);
+  slit.display();
   //// set the mode, display initial source, slits, and detector
   //size(600,600);
   //MODE = SINGLE_SLIT;
@@ -35,7 +37,12 @@ void draw(){
   background(0);
   Source source = new Source(0, height/2, 0);
   Wave testWave = source.generateWave();
+  for (int i = 0; i < 13; i++)
+    testWave.propagate();
+  if (testWave.hitSlit())
+    testWave.changeType();
   testWave.display();
+  slit.display();
   //if (millis() - lastWave > 300) {
   //  for (Source s : sources) {
   //    s.generateWave();
