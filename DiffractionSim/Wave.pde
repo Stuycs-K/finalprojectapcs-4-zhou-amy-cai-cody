@@ -125,10 +125,10 @@ class Wave {
   static final int SPHERICAL = 1;
   ArrayList<Point> points;
   
-  Wave(int type){
+  Wave(float startPos, int type){
     points = new ArrayList<Point>();
-    for (int i = 0; i < width; i+=10) {
-      Point point = new Point(1, i, 50, 10);
+    for (int i = 10; i < width; i+=10) {
+      Point point = new Point(startPos, i, 25, 10);
       points.add(point);
     }
     WAVE_TYPE = type;
@@ -138,6 +138,7 @@ class Wave {
     for (Point point : points) {
       point.move();
     }
+    display();
   }
   
   void display() {

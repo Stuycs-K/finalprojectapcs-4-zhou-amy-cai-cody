@@ -4,8 +4,8 @@ static int DOUBLE_SLIT = 2;
 //Detector detector;
 //Slit slit;
 //ArrayList<Source> sources;
-ArrayList<Wave> waves;
-float lastWave;
+//ArrayList<Wave> waves;
+//float lastWave;
 
 void setup(){
   size(600, 600);
@@ -33,11 +33,9 @@ void setup(){
   
 void draw(){
   background(0);
-  Wave testWave = new Wave(0);
+  Source source = new Source(0, height/2, 0);
+  Wave testWave = source.generateWave();
   testWave.display();
-  for (int i = 0; i < 10; i++) {
-    testWave.propagate(); 
-  }
   //if (millis() - lastWave > 300) {
   //  for (Source s : sources) {
   //    s.generateWave();
