@@ -4,12 +4,12 @@ class Interference {
 	float maxAmp;
 	Interference(Frontier waves) {
 		this.waves = waves;
-		this.c = waves.get(0).c;
-		maxAmp = waves.points.get(0).maxAmp;
+		this.c = waves.get().c;
+		maxAmp = waves.points.get().maxAmp;
 	}
 	float getAmp(float x, float y, float t) {
 		float instAmp = 0;
-		for (int i = 0; i waves.size(); i++) {
+		for (int i = 0; i < waves.size(); i++) {
 			for (Point p : waves.points) {
 				instAmp += p.amplitude;
 			}
