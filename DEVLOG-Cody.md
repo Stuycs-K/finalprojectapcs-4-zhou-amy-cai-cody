@@ -22,3 +22,7 @@ After thinking about how we will produce spherical waves, I added a Source class
 ### 2025-05-29 - Wave Types and Displays
 
 Wrote the display methods for Source and Wave whilst also creating two types of waves which will be created in the simulation: spherical and planar waves.
+
+### 2025-06-02 - Rewriting Wave Class
+
+After today's MVP suggestions, I rewrote the Wave class to use be a locus of a new Point class. Using these points, I reworked how waves moved on the screen, with planar ones propagating horizontally and spherical ones radiating outwards from the slits. I plan to work on displaying waves as gradients based on their amplitudes next.
