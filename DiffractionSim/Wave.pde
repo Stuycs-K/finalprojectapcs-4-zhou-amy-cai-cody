@@ -125,8 +125,10 @@ class Wave {
   static final int SPHERICAL = 1;
   ArrayList<Point> points;
   PVector originalPos;
+  int wavelength;
+  color c;
   
-  Wave(float startPos, int type){
+  Wave(float startPos, int type, int wavelength){
     points = new ArrayList<Point>();
     for (int i = 0; i < height; i+=10) {
       Point point = new Point(startPos, i, 10, 10);
@@ -134,14 +136,48 @@ class Wave {
     }
     WAVE_TYPE = type;
     originalPos = new PVector(startPos, 0);
+    originalPos = new PVector(startPos, 0);
+    WAVE_TYPE = type;
+    int w = wavelength;
+    float r = 0; 
+    float b = 0;
+    float g = 0;
+    if (380 <= w && w < 400) {
+      r = -(w-440) / (440-380);
+      b = 1.0;
+    }
+    else if (w < 490) {
+      g = (w-440) / (490-440);
+      b = 1.0;
+    }
+    else if (w < 510) {
+      g = 1.0;
+      b = -(w-510)/(510-490);
+    }
+    else if (w < 580) {
+      r = (w-510) / (580-510);
+      g = 1.0;
+    }
+    else {
+      r = 1.0;
+    }
+    c = color(r*255,g*255,b*255);
   }
   
   void propagate() {
-    float r = dist(x,y,originalPos.x(), originalPos.y);
-    float factor = 1/max(1,r*0.1);
-    for (Point point : points) {
-      point.setAmplitude(point.getAmp() * factor);
-      point.move();
+    if (WAVE_TYPE == SPHERICAL) {
+      for (Point point : points) {
+        float r = dist(point.position.x,point.position.y,originalPos.x, originalPos.y);
+        float factor = 1/max(1,r*0.1);
+        point.setAmplitude(point.getAmp() * factor);
+        fill(c, (point.getAmp() / point.maxAmp) * 255 );
+        point.move();
+      }
+    }
+    else {
+      for (Point point : points) {
+        point.move();
+      }
     }
   }
   
