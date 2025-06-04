@@ -87,7 +87,7 @@ import java.util.*;
 //      return amp * sin(getPhase(x,y) - frequency * (t-time));
 //    }
 //  }
-  
+
 //  void changeType() {
 //    WAVE_TYPE++;
 //    WAVE_TYPE%=2;
@@ -111,7 +111,7 @@ import java.util.*;
 //      circle(originalPos.x, originalPos.y, r);
 //    }
 //  }
-  
+
 //  boolean hitSlit() {
 //    if (converted || WAVE_TYPE == SPHERICAL) return false;
 //    return (position.x >= width /2.5 && position.x < width/2.5 + 20 && abs(position.y - height/2) < 50);
@@ -125,13 +125,38 @@ class Wave {
   static final int SPHERICAL = 1;
   ArrayList<Point> points;
   PVector originalPos;
-  int wavelength;
+  float wavelength;
   color c;
-  
-  Wave(float startPos, int type, int wavelength){
+
+  Wave(float startPos, int type, float wavelength){
     points = new ArrayList<Point>();
+    this.wavelength = wavelength;
+    float w = wavelength;
+    float r = 0;
+    float b = 0;
+    float g = 0;
+    if (380 <= w && w < 400) {
+      r = -(w-440) / (440-380);
+      b = 1.0;
+    }
+    else if (w < 490) {
+      g = (w-440) / (490-440);
+      b = 1.0;
+    }
+    else if (w < 510) {
+      g = 1.0;
+      b = -(w-510)/(510-490);
+    }
+    else if (w < 580) {
+      r = (w-510) / (580-510);
+      g = 1.0;
+    }
+    else {
+      r = 1.0;
+    }
+    c = color(r*255,g*255,b*255);
     for (int i = 0; i < height; i+=10) {
-      Point point = new Point(startPos, i, 10, 10);
+      Point point = new Point(startPos, i, 10, 10, c);
       points.add(point);
     }
     WAVE_TYPE = type;
@@ -139,7 +164,7 @@ class Wave {
     originalPos = new PVector(startPos, 0);
     WAVE_TYPE = type;
     //int w = wavelength;
-    //float r = 0; 
+    //float r = 0;
     //float b = 0;
     //float g = 0;
     //if (380 <= w && w < 400) {
@@ -163,11 +188,11 @@ class Wave {
     //}
     //c = color(r*255,g*255,b*255);
   }
-  
+
   ArrayList<Point> getPoints() {
     return points;
   }
-  
+
   void propagate() {
     if (WAVE_TYPE == SPHERICAL) {
       for (Point point : points) {
@@ -184,7 +209,7 @@ class Wave {
       }
     }
   }
-  
+
   boolean hitSlit() {
     if (WAVE_TYPE == SPHERICAL) {
       return false;
@@ -192,14 +217,14 @@ class Wave {
     float pos = points.get(0).getX();
     return pos >= width/2;
   }
-  
+
   void changeType() {
     WAVE_TYPE = SPHERICAL;
     int numPoints = points.size();
     points.clear();
     if (MODE == SINGLE_SLIT) {
       for (int i = 0; i < numPoints; i++) {
-        Point point = new Point(width/2+20, height/2, 10, 10);
+        Point point = new Point(width/2+20, height/2, 10, 10, c);
         point.velocity.rotate(HALF_PI);
         points.add(point);
       }
@@ -214,9 +239,9 @@ class Wave {
       for (int i = 0; i < numPoints; i++) {
         Point point;
         if (i % 2 == 0) {
-          point = new Point(width/2+20, height/2-55, 10, 10);
+          point = new Point(width/2+20, height/2-55, 10, 10, c);
         } else {
-          point = new Point(width/2+20, height/2+45, 10, 10);
+          point = new Point(width/2+20, height/2+45, 10, 10, c);
         }
         point.velocity.rotate(HALF_PI);
         points.add(point);
@@ -231,11 +256,20 @@ class Wave {
       }
     }
   }
-  
+
   void display() {
+    if (WAVE_TYPE == SPHERICAL) {
+      Point point = points.get(0);
+      float r = dist(point.getX(),point.getY(),originalPos.x, originalPos.y);
+      float factor = 25/max(1,r*0.1);
+      blendMode(REPLACE);
+      stroke(c, factor*255);
+    }
+    else {
+      stroke(c);
+    }
+    strokeWeight(5);
     if (MODE == SINGLE_SLIT) {
-      stroke(0, 0, 255);
-      strokeWeight(10);
       for (int i = 0; i < points.size()-1; i++) {
         Point point1 = points.get(i);
         Point point2 = points.get(i+1);
@@ -243,8 +277,6 @@ class Wave {
       }
     }
     if (MODE == DOUBLE_SLIT) {
-      stroke(0, 0, 255);
-      strokeWeight(10);
       for (int i = 0; i < points.size()-2; i++) {
         Point point1 = points.get(i);
         Point point2 = points.get(i+2);
@@ -252,6 +284,6 @@ class Wave {
       }
     }
   }
-  
-  
+
+
 }
