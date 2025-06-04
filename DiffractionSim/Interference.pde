@@ -1,27 +1,27 @@
-class Interference {
-	Frontier waves;
-	color c;
-	float maxAmp;
-	Interference(Frontier waves) {
-		this.waves = waves;
-		this.c = waves.get().c;
-		maxAmp = waves.points.get().maxAmp;
-	}
-	float getAmp(float x, float y, float t) {
-		float instAmp = 0;
-		for (int i = 0; i < waves.size(); i++) {
-			for (Point p : waves.points) {
-				instAmp += p.amplitude;
-			}
-		}
-		return instAmp;
-	}
-	void display(float x, float y, float t) {
-		fill(c, (getAmp(x,y,t)/maxAmp)*255);
-		noStroke();
-		circle(position.x, position.y, 4); 
-	}
-}
+//class Interference {
+//	ArrayList<Wave> waves;
+//	color c;
+//	float maxAmp;
+//	Interference(ArrayList<Wave> waves) {
+//		this.waves = waves;
+//		this.c = waves.get(0).c;
+//		maxAmp = waves.points.get(0).maxAmp;
+//	}
+//	float getAmp(float x, float y, float t) {
+//		float instAmp = 0;
+//		for (int i = 0; i < waves.size(); i++) {
+//			for (Point p : waves.points) {
+//				instAmp += p.amplitude;
+//			}
+//		}
+//		return instAmp;
+//	}
+//	void display(float x, float y, float t) {
+//		fill(c, (getAmp(x,y,t)/maxAmp)*255);
+//		noStroke();
+//		circle(position.x, position.y, 4); 
+//	}
+//}
 //class Interference {
 //  ArrayList<Wave> waves;
 //  int fringeWidth;
