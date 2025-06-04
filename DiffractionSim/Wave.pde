@@ -124,6 +124,7 @@ class Wave {
   static final int PLANAR = 0;
   static final int SPHERICAL = 1;
   ArrayList<Point> points;
+  PVector originalPos;
   
   Wave(float startPos, int type){
     points = new ArrayList<Point>();
@@ -132,13 +133,14 @@ class Wave {
       points.add(point);
     }
     WAVE_TYPE = type;
+    originalPos = new PVector(startPos, 0);
   }
   
   void propagate() {
-    float r = dist(x,y,originalPos.x, originalPos.y);
+    float r = dist(x,y,originalPos.x(), originalPos.y);
     float factor = 1/max(1,r*0.1);
     for (Point point : points) {
-      point.setAmp(point.getAmp * factor);
+      point.setAmplitude(point.getAmp() * factor);
       point.move();
     }
   }
