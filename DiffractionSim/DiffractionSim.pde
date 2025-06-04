@@ -11,7 +11,7 @@ void setup(){
   frameRate(30);
   
   // setting up slit(s)
-  MODE = DOUBLE_SLIT;
+  MODE = SINGLE_SLIT;
   slit = new Slit(MODE, 1);
   
   // setting up sources
@@ -26,18 +26,12 @@ void setup(){
   }
   
   //setting up detector
-  
+  //detector = new Detector(width, waves);
+  //detector.display();
   
   // displaying initial state
   slit.display();
 
-  //detector = new Detector(width, waves);
-  //slit = new Slit(SINGLE_SLIT, 1);
-  ////sources.add(new Source(0, height/2));
-  
-  //detector.display();
-  //slit.display();
-  //sources.get(0).display();
 }
   
 void draw(){
@@ -75,5 +69,5 @@ void reset() {
     waves.add(wave);
   }
   slit = new Slit(MODE, 1);
-  slit.display();
+  frameCount = 0;
 }
