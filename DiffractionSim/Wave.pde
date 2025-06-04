@@ -144,7 +144,7 @@ class Wave {
     if (WAVE_TYPE == SPHERICAL) {
       return false;
     }
-    float pos = points.get(0).getPosition();
+    float pos = points.get(0).position.x;
     return pos >= width/2;
   }
   
