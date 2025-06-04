@@ -128,7 +128,7 @@ class Wave {
   Wave(float startPos, int type){
     points = new ArrayList<Point>();
     for (int i = 0; i < width; i+=10) {
-      Point point = new Point(startPos, i, 25, 10);
+      Point point = new Point(startPos, i, 10, 10);
       points.add(point);
     }
     WAVE_TYPE = type;
@@ -154,7 +154,7 @@ class Wave {
     points.clear();
     if (MODE == SINGLE_SLIT) {
       for (int i = 0; i < numPoints; i++) {
-        Point point = new Point(width/2+20, height/2, 25, 10);
+        Point point = new Point(width/2+20, height/2, 10, 10);
         point.velocity.rotate(HALF_PI);
         points.add(point);
       }
@@ -169,9 +169,9 @@ class Wave {
       for (int i = 0; i < numPoints; i++) {
         Point point;
         if (i % 2 == 0) {
-          point = new Point(width/2+20, height/2-55, 25, 10);
+          point = new Point(width/2+20, height/2-55, 10, 10);
         } else {
-          point = new Point(width/2+20, height/2+45, 25, 10);
+          point = new Point(width/2+20, height/2+45, 10, 10);
         }
         point.velocity.rotate(HALF_PI);
         points.add(point);

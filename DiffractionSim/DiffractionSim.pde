@@ -4,16 +4,32 @@ static int DOUBLE_SLIT = 2;
 //Detector detector;
 Slit slit;
 ArrayList<Source> sources;
-Frontier waves;
+ArrayList<Wave> waves;
 //float lastWave;
 
 void setup(){
   size(600, 600);
+  frameRate(30);
+  
+  // setting up slit(s)
   MODE = SINGLE_SLIT;
   slit = new Slit(MODE, 1);
+  
+  // setting up sources
   sources = new ArrayList<Source>();
   sources.add(new Source(0, height/2, 0));
-  waves = new Frontier();
+  
+  // setting up waves
+  waves = new ArrayList<Wave>();
+  for (int i = 0; i < 10; i++) {
+    Wave wave = sources.get(0).generateWave();
+    waves.add(wave);
+  }
+  
+  //setting up detector
+  
+  
+  // displaying initial state
   slit.display();
   //// set the mode, display initial source, slits, and detector
   //size(600,600);
@@ -38,6 +54,17 @@ void setup(){
   
 void draw(){
   background(0);
+  for (int i = 0; i < waves.size(); i++) {
+    Wave wave = waves.get(i);
+    if (frameCount >= i * 5) {
+      wave.propagate(); 
+    }
+    if (wave.hitSlit()) {
+      wave.changeType(); 
+    }
+    wave.display();
+  }
+  slit.display();
   //if (millis() - lastWave > 300) {
   //  for (Source s : sources) {
   //    s.generateWave();
