@@ -12,10 +12,6 @@ class Point {
     position = PVector.add(position, velocity);
   }
   
-  float getPosition() {
-    return position.x; 
-  }
-  
   void display() {
     fill(0, 0, 255);
     noStroke();

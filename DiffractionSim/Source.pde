@@ -10,20 +10,8 @@ class Source {
   
   // filler values for wave
   Wave generateWave() {
-    Wave wave = new Wave(getX(), waveType);
+    Wave wave = new Wave(xpos, waveType);
     return wave;
-  }
-  
-  void changeWaveType () {
-    waveType = (waveType + 1) % 2;
-  }
-  
-  float getX() {
-    return xpos; 
-  }
-  
-  float getY() {
-    return ypos; 
   }
   
 }
