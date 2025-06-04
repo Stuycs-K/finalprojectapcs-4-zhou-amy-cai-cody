@@ -125,20 +125,13 @@ class Wave {
   static final int SPHERICAL = 1;
   ArrayList<Point> points;
   PVector originalPos;
-  int wavelength;
+  float wavelength;
   color c;
   
-  Wave(float startPos, int type, int wavelength){
+  Wave(float startPos, int type, float wavelength){
     points = new ArrayList<Point>();
-    for (int i = 0; i < height; i+=10) {
-      Point point = new Point(startPos, i, 10, 10);
-      points.add(point);
-    }
-    WAVE_TYPE = type;
-    originalPos = new PVector(startPos, 0);
-    originalPos = new PVector(startPos, 0);
-    WAVE_TYPE = type;
-    int w = wavelength;
+    this.wavelength = wavelength;
+    float w = wavelength;
     float r = 0; 
     float b = 0;
     float g = 0;
@@ -162,6 +155,13 @@ class Wave {
       r = 1.0;
     }
     c = color(r*255,g*255,b*255);
+    for (int i = 0; i < height; i+=10) {
+      Point point = new Point(startPos, i, 10, 10, c);
+      points.add(point);
+    }
+    WAVE_TYPE = type;
+    originalPos = new PVector(startPos, 0);
+    WAVE_TYPE = type;
   }
   
   void propagate() {
@@ -195,7 +195,7 @@ class Wave {
     points.clear();
     if (MODE == SINGLE_SLIT) {
       for (int i = 0; i < numPoints; i++) {
-        Point point = new Point(width/2+20, height/2, 10, 10);
+        Point point = new Point(width/2+20, height/2, 10, 10, c);
         point.velocity.rotate(HALF_PI);
         points.add(point);
       }
@@ -210,9 +210,9 @@ class Wave {
       for (int i = 0; i < numPoints; i++) {
         Point point;
         if (i % 2 == 0) {
-          point = new Point(width/2+20, height/2-55, 10, 10);
+          point = new Point(width/2+20, height/2-55, 10, 10, c);
         } else {
-          point = new Point(width/2+20, height/2+45, 10, 10);
+          point = new Point(width/2+20, height/2+45, 10, 10, c);
         }
         point.velocity.rotate(HALF_PI);
         points.add(point);
@@ -229,9 +229,17 @@ class Wave {
   }
   
   void display() {
+    if (WAVE_TYPE == SPHERICAL) {
+      Point point = points.get(0);
+      float r = dist(point.position.x,point.position.y,originalPos.x, originalPos.y);
+      float factor = 25/max(1,r*0.1);
+      stroke(c, factor*255);
+    }
+    else {
+      stroke(c);
+    }
+    strokeWeight(5);
     if (MODE == SINGLE_SLIT) {
-      stroke(0, 0, 255);
-      strokeWeight(10);
       for (int i = 0; i < points.size()-1; i++) {
         Point first = points.get(i);
         Point second = points.get(i+1);
@@ -239,8 +247,6 @@ class Wave {
       }
     }
     if (MODE == DOUBLE_SLIT) {
-      stroke(0, 0, 255);
-      strokeWeight(10);
       for (int i = 0; i < points.size()-2; i++) {
         Point first = points.get(i);
         Point second = points.get(i+2);
