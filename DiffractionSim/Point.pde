@@ -23,10 +23,15 @@ class Point {
   float getY() {
     return position.y;
   }
+  
+  boolean isOffScreen() {
+    return getX() > width || getX() < 0 || getY() > height || getY() < 0;
+  }
 
   float getAmp() {
     return amplitude;
   }
+  
   void setAmplitude(float amp) {
     this.amplitude = amp;
   }
