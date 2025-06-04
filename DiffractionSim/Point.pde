@@ -13,7 +13,7 @@ class Point {
   void move() {
     position = PVector.add(position, velocity);
   }
-  
+
   float getPosition() {
     return position.x; 
   }

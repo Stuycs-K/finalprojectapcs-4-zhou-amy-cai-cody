@@ -26,3 +26,7 @@ Wrote the display methods for Source and Wave whilst also creating two types of 
 ### 2025-06-02 - Rewriting Wave Class
 
 After today's MVP suggestions, I rewrote the Wave class to use be a locus of a new Point class. Using these points, I reworked how waves moved on the screen, with planar ones propagating horizontally and spherical ones radiating outwards from the slits. I plan to work on displaying waves as gradients based on their amplitudes next.
+
+### 2025-06-03 - Wave Display and Simulation Setup
+
+I changed the display() function for Wave to display a smooth wavefront rather than multiple points. Then I rewrote the setup() and draw() methods using the new Wave, Point, and Source classes to run the simulation smoothly.

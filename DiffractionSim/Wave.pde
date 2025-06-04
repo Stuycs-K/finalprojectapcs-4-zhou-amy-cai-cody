@@ -127,8 +127,8 @@ class Wave {
   
   Wave(float startPos, int type){
     points = new ArrayList<Point>();
-    for (int i = 0; i < width; i+=10) {
-      Point point = new Point(startPos, i, 25, 10);
+    for (int i = 0; i < height; i+=10) {
+      Point point = new Point(startPos, i, 10, 10);
       points.add(point);
     }
     WAVE_TYPE = type;
@@ -147,7 +147,7 @@ class Wave {
     if (WAVE_TYPE == SPHERICAL) {
       return false;
     }
-    float pos = points.get(0).getPosition();
+    float pos = points.get(0).position.x;
     return pos >= width/2;
   }
   
@@ -155,29 +155,59 @@ class Wave {
     WAVE_TYPE = SPHERICAL;
     int numPoints = points.size();
     points.clear();
-    for (int i = 0; i < numPoints; i++) {
-      Point point;
-      if (i % 2 == 0) {
-        point = new Point(width/2+20, height/2-55, 25, 10);
-      } else {
-        point = new Point(width/2+20, height/2+45, 25, 10);
+    if (MODE == SINGLE_SLIT) {
+      for (int i = 0; i < numPoints; i++) {
+        Point point = new Point(width/2+20, height/2, 10, 10);
+        point.velocity.rotate(HALF_PI);
+        points.add(point);
       }
-      point.velocity.rotate(HALF_PI);
-      points.add(point);
+      int k = 1;
+      for (int i = 0; i < points.size(); i++) {
+        Point point = points.get(i);
+        point.velocity.rotate(-((PI * k) / 60));
+        k++;
+      }
     }
-    int k = 1;
-    for (int i = 0; i < points.size(); i+=2) {
-      Point first = points.get(i);
-      Point second = points.get(i+1);
-      first.velocity.rotate(-((PI * k) / 30));
-      second.velocity.rotate(-((PI * k) / 30));
-      k++;
+    if (MODE == DOUBLE_SLIT) {
+      for (int i = 0; i < numPoints; i++) {
+        Point point;
+        if (i % 2 == 0) {
+          point = new Point(width/2+20, height/2-55, 10, 10);
+        } else {
+          point = new Point(width/2+20, height/2+45, 10, 10);
+        }
+        point.velocity.rotate(HALF_PI);
+        points.add(point);
+      }
+      int k = 1;
+      for (int i = 0; i < points.size(); i+=2) {
+        Point first = points.get(i);
+        Point second = points.get(i+1);
+        first.velocity.rotate(-((PI * k) / 30));
+        second.velocity.rotate(-((PI * k) / 30));
+        k++;
+      }
     }
   }
   
   void display() {
-    for (Point point : points) {
-      point.display(); 
+    if (MODE == SINGLE_SLIT) {
+      stroke(0, 0, 255);
+      strokeWeight(10);
+      for (int i = 0; i < points.size()-1; i++) {
+        Point first = points.get(i);
+        Point second = points.get(i+1);
+        line(first.position.x, first.position.y, second.position.x, second.position.y);
+      }
+    }
+    if (MODE == DOUBLE_SLIT) {
+      stroke(0, 0, 255);
+      strokeWeight(10);
+      for (int i = 0; i < points.size()-2; i++) {
+        Point first = points.get(i);
+        Point second = points.get(i+2);
+        line(first.position.x, first.position.y, second.position.x, second.position.y);
+      }
     }
   }
   
