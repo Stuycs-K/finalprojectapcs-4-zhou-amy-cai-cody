@@ -260,8 +260,9 @@ class Wave {
   void display() {
     if (WAVE_TYPE == SPHERICAL) {
       Point point = points.get(0);
-      float r = dist(point.position.x,point.position.y,originalPos.x, originalPos.y);
+      float r = dist(point.getX(),point.getY(),originalPos.x, originalPos.y);
       float factor = 25/max(1,r*0.1);
+      blendMode(REPLACE);
       stroke(c, factor*255);
     }
     else {
