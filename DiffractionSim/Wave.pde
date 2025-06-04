@@ -188,12 +188,23 @@ class Wave {
   }
   
   void display() {
-    stroke(0, 0, 255);
-    strokeWeight(10);
-    for (int i = 0; i < points.size()-1; i++) {
-      Point first = points.get(i);
-      Point second = points.get(i+1);
-      line(first.position.x, first.position.y, second.position.x, second.position.y);
+    if (MODE == SINGLE_SLIT) {
+      stroke(0, 0, 255);
+      strokeWeight(10);
+      for (int i = 0; i < points.size()-1; i++) {
+        Point first = points.get(i);
+        Point second = points.get(i+1);
+        line(first.position.x, first.position.y, second.position.x, second.position.y);
+      }
+    }
+    if (MODE == DOUBLE_SLIT) {
+      stroke(0, 0, 255);
+      strokeWeight(10);
+      for (int i = 0; i < points.size()-2; i++) {
+        Point first = points.get(i);
+        Point second = points.get(i+2);
+        line(first.position.x, first.position.y, second.position.x, second.position.y);
+      }
     }
   }
   
