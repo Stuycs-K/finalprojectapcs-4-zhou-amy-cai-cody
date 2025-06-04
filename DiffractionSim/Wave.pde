@@ -127,7 +127,7 @@ class Wave {
   
   Wave(float startPos, int type){
     points = new ArrayList<Point>();
-    for (int i = 0; i < width; i+=10) {
+    for (int i = 0; i < height; i+=10) {
       Point point = new Point(startPos, i, 10, 10);
       points.add(point);
     }
@@ -188,8 +188,12 @@ class Wave {
   }
   
   void display() {
-    for (Point point : points) {
-      point.display(); 
+    stroke(0, 0, 255);
+    strokeWeight(10);
+    for (int i = 0; i < points.size()-1; i++) {
+      Point first = points.get(i);
+      Point second = points.get(i+1);
+      line(first.position.x, first.position.y, second.position.x, second.position.y);
     }
   }
   
