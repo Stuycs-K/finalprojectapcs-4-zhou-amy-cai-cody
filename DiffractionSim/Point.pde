@@ -22,5 +22,4 @@ class Point {
     circle(position.x, position.y, 10);
   }
   
-  
 }

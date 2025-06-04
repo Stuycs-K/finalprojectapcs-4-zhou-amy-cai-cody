@@ -152,23 +152,38 @@ class Wave {
     WAVE_TYPE = SPHERICAL;
     int numPoints = points.size();
     points.clear();
-    for (int i = 0; i < numPoints; i++) {
-      Point point;
-      if (i % 2 == 0) {
-        point = new Point(width/2+20, height/2-55, 25, 10);
-      } else {
-        point = new Point(width/2+20, height/2+45, 25, 10);
+    if (MODE == SINGLE_SLIT) {
+      for (int i = 0; i < numPoints; i++) {
+        Point point = new Point(width/2+20, height/2, 25, 10);
+        point.velocity.rotate(HALF_PI);
+        points.add(point);
       }
-      point.velocity.rotate(HALF_PI);
-      points.add(point);
+      int k = 1;
+      for (int i = 0; i < points.size(); i++) {
+        Point point = points.get(i);
+        point.velocity.rotate(-((PI * k) / 60));
+        k++;
+      }
     }
-    int k = 1;
-    for (int i = 0; i < points.size(); i+=2) {
-      Point first = points.get(i);
-      Point second = points.get(i+1);
-      first.velocity.rotate(-((PI * k) / 30));
-      second.velocity.rotate(-((PI * k) / 30));
-      k++;
+    if (MODE == DOUBLE_SLIT) {
+      for (int i = 0; i < numPoints; i++) {
+        Point point;
+        if (i % 2 == 0) {
+          point = new Point(width/2+20, height/2-55, 25, 10);
+        } else {
+          point = new Point(width/2+20, height/2+45, 25, 10);
+        }
+        point.velocity.rotate(HALF_PI);
+        points.add(point);
+      }
+      int k = 1;
+      for (int i = 0; i < points.size(); i+=2) {
+        Point first = points.get(i);
+        Point second = points.get(i+1);
+        first.velocity.rotate(-((PI * k) / 30));
+        second.velocity.rotate(-((PI * k) / 30));
+        k++;
+      }
     }
   }
   
