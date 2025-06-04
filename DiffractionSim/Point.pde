@@ -14,20 +14,20 @@ class Point {
     position = PVector.add(position, velocity);
   }
 
-  float getPosition() {
+  float getX() {
     return position.x; 
   }
+  
+  float getY() {
+    return position.y; 
+  }
+  
   float getAmp() {
     return amplitude;
   }
   void setAmplitude(float amp) {
     this.amplitude = amp;
   }
-  
-  void display() {
-    fill(0, 0, 255);
-    noStroke();
-    circle(position.x, position.y, 10);
-  }
+ 
   
 }

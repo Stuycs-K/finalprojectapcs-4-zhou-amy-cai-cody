@@ -138,36 +138,40 @@ class Wave {
     originalPos = new PVector(startPos, 0);
     originalPos = new PVector(startPos, 0);
     WAVE_TYPE = type;
-    int w = wavelength;
-    float r = 0; 
-    float b = 0;
-    float g = 0;
-    if (380 <= w && w < 400) {
-      r = -(w-440) / (440-380);
-      b = 1.0;
-    }
-    else if (w < 490) {
-      g = (w-440) / (490-440);
-      b = 1.0;
-    }
-    else if (w < 510) {
-      g = 1.0;
-      b = -(w-510)/(510-490);
-    }
-    else if (w < 580) {
-      r = (w-510) / (580-510);
-      g = 1.0;
-    }
-    else {
-      r = 1.0;
-    }
-    c = color(r*255,g*255,b*255);
+    //int w = wavelength;
+    //float r = 0; 
+    //float b = 0;
+    //float g = 0;
+    //if (380 <= w && w < 400) {
+    //  r = -(w-440) / (440-380);
+    //  b = 1.0;
+    //}
+    //else if (w < 490) {
+    //  g = (w-440) / (490-440);
+    //  b = 1.0;
+    //}
+    //else if (w < 510) {
+    //  g = 1.0;
+    //  b = -(w-510)/(510-490);
+    //}
+    //else if (w < 580) {
+    //  r = (w-510) / (580-510);
+    //  g = 1.0;
+    //}
+    //else {
+    //  r = 1.0;
+    //}
+    //c = color(r*255,g*255,b*255);
+  }
+  
+  ArrayList<Point> getPoints() {
+    return points;
   }
   
   void propagate() {
     if (WAVE_TYPE == SPHERICAL) {
       for (Point point : points) {
-        float r = dist(point.position.x,point.position.y,originalPos.x, originalPos.y);
+        float r = dist(point.getX(),point.getY(),originalPos.x, originalPos.y);
         float factor = 1/max(1,r*0.1);
         point.setAmplitude(point.getAmp() * factor);
         fill(c, (point.getAmp() / point.maxAmp) * 255 );
@@ -185,7 +189,7 @@ class Wave {
     if (WAVE_TYPE == SPHERICAL) {
       return false;
     }
-    float pos = points.get(0).position.x;
+    float pos = points.get(0).getX();
     return pos >= width/2;
   }
   
@@ -233,18 +237,18 @@ class Wave {
       stroke(0, 0, 255);
       strokeWeight(10);
       for (int i = 0; i < points.size()-1; i++) {
-        Point first = points.get(i);
-        Point second = points.get(i+1);
-        line(first.position.x, first.position.y, second.position.x, second.position.y);
+        Point point1 = points.get(i);
+        Point point2 = points.get(i+1);
+        line(point1.getX(), point1.getY(), point2.getX(), point2.getY());
       }
     }
     if (MODE == DOUBLE_SLIT) {
       stroke(0, 0, 255);
       strokeWeight(10);
       for (int i = 0; i < points.size()-2; i++) {
-        Point first = points.get(i);
-        Point second = points.get(i+2);
-        line(first.position.x, first.position.y, second.position.x, second.position.y);
+        Point point1 = points.get(i);
+        Point point2 = points.get(i+2);
+        line(point1.getX(), point1.getY(), point2.getX(), point2.getY());
       }
     }
   }
