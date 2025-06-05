@@ -15,60 +15,6 @@ import java.util.*;
 //  boolean converted = false;
 //  boolean active = true;
 
-//  Wave (float x, float y, float wavelength, float speed, float amplitude, int type, float t) {
-//    this.wavelength = wavelength;
-//    this.speed = speed;
-//    this.maxAmplitude = amplitude;
-//    this.amplitude = amplitude;
-//    frequency = speed / wavelength;
-//    position = new PVector(x, y);
-//    originalPos = new PVector(x,y);
-//    velocity = new PVector(speed, 0);
-//    WAVE_TYPE = type;
-//    this.time = t;
-//    //code for wavelength --> hex
-//    float r = 0.0;
-//    float g = 0.0;
-//    float b = 0.0;
-//    float w = wavelength;
-//    if (380 <= w && w < 400) {
-//      r = -(w-440) / (440-380);
-//      b = 1.0;
-//    }
-//    else if (w < 490) {
-//      g = (w-440) / (490-440);
-//      b = 1.0;
-//    }
-//    else if (w < 510) {
-//      g = 1.0;
-//      b = -(w-510)/(510-490);
-//    }
-//    else if (w < 580) {
-//      r = (w-510) / (580-510);
-//      g = 1.0;
-//    }
-//    else {
-//      r = 1.0;
-//    }
-//    c = color(r*255,g*255,b*255);
-//  }
-//  color getColor() {
-//    return c;
-//  }
-//  // in code, treat like a ray; visually, it will be a planar/spherical wave
-//  void propagate(float t) {
-//    if (WAVE_TYPE == PLANAR) {
-//      position = PVector.add(originalPos, PVector.mult(velocity, t-time));
-//    }
-//    else {
-//     position = PVector.add(position, velocity);
-//     distance += velocity.mag();
-//    }
-//  }
-
-//  float getDist() {
-//    return distance;
-//  }
 
 //  float getPhase(float x, float y) {
 //    float r = dist(x,y,position.x, position.y);
@@ -163,30 +109,6 @@ class Wave {
     originalPos = new PVector(startPos, 0);
     originalPos = new PVector(startPos, 0);
     WAVE_TYPE = type;
-    //int w = wavelength;
-    //float r = 0;
-    //float b = 0;
-    //float g = 0;
-    //if (380 <= w && w < 400) {
-    //  r = -(w-440) / (440-380);
-    //  b = 1.0;
-    //}
-    //else if (w < 490) {
-    //  g = (w-440) / (490-440);
-    //  b = 1.0;
-    //}
-    //else if (w < 510) {
-    //  g = 1.0;
-    //  b = -(w-510)/(510-490);
-    //}
-    //else if (w < 580) {
-    //  r = (w-510) / (580-510);
-    //  g = 1.0;
-    //}
-    //else {
-    //  r = 1.0;
-    //}
-    //c = color(r*255,g*255,b*255);
   }
 
   ArrayList<Point> getPoints() {
