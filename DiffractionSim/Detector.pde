@@ -18,11 +18,20 @@ class Detector {
   }
   
   void display() {
+    float maxIntensity = 0;
+    for (int y = 0; y < height; y+= 4) {
+      float intensity = getIntensity(y);
+      if (intensity > maxIntensity) {
+        maxIntensity = intensity;
+      }
+    }
     for (int y = 0; y < height; y+=4) {
       float intensity = getIntensity(y);
       //println(intensity);
       strokeWeight(5);
-      float brightness = map(intensity, 0.0, 60000, 0.0, 255.0);
+      float brightness = 0;
+      if (MODE == SINGLE_SLIT) brightness = map(intensity, 0.0, maxIntensity*100.0, 0.0, 255.0);
+      else if (MODE == DOUBLE_SLIT) brightness = map(intensity, 0.0, maxIntensity*20.5, 0.0, 255.0);
       stroke(c,brightness);
       line(distance-75,y,distance,y);
     }
