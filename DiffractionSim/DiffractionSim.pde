@@ -6,7 +6,6 @@ Slit slit;
 ArrayList<Source> sources;
 ArrayList<Wave> waves;
 boolean paused = false;
-float start = millis();
 
 void setup(){
   size(600, 600);
@@ -29,7 +28,6 @@ void setup(){
   
   //setting up detector
   detector = new Detector(width, waves.get(0).c, waves);
-  //detector.display();
   
   // displaying initial state
   slit.display();

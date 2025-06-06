@@ -16,10 +16,11 @@ class Detector {
     }
     return amp * amp;
   }
+  
   void display() {
     for (int y = 0; y < height; y+=4) {
       float intensity = getIntensity(y);
-      println(intensity);
+      //println(intensity);
       strokeWeight(5);
       float brightness = map(intensity, 0.0, 60000, 0.0, 255.0);
       stroke(c,brightness);
