@@ -178,7 +178,27 @@ class Wave {
       }
     }
   }
-
+  
+  boolean closeEnough(float a,float b, float c, float d){
+    //How can you determine if two values are close enough to eachother?
+    //you write this later
+    //from triangle lab
+    if (a == 0 || b == 0) {
+      return a == 0 && b == 0;
+    }
+    else {
+      return dist(a,b,c,d) < 10;
+    }
+  }
+  float getAmp(float x, float y) {
+    float totalAmp = 0;
+    for (Point p : points) {
+      if (closeEnough(p.position.x, x, p.position.y, y)) {
+        totalAmp += p.getAmp();
+      }
+    }
+    return totalAmp;
+  }
   void display() {
     if (WAVE_TYPE == SPHERICAL) {
       Point point = points.get(0);

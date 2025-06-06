@@ -1,26 +1,28 @@
-//class Detector {
-//  float distance; 
-//  ArrayList<Wave> waves;
-//  color c;
-  
-//  float getIntensity(float x, float y, float t){
-//    float amp = 0;
-//    for (Wave w : waves) {
-//      for (Point p : w.points) {
-//        amp += p.getAmp();
-//      }
-//    }
-//    return amp * amp;
-//  }
-//  void display() {
-//    for (int y = 0; y < height; y+=2) {
-//      float intensity = getIntensity(distance,y, millis()/1000.0);
-//      float brightness = intensity * 255;
-//      stroke(c,brightness);
-//      line(width-100,y,width,y);
-//    }
-//  }
-//}
+class Detector {
+  float distance; 
+  ArrayList<Wave> waves;
+  color c;
+  Detector (float distance, color c, ArrayList<Wave> waves) {
+    this.distance = distance;
+    this.c = c;
+    this.waves = waves;
+  }
+  float getIntensity(float x, float y){
+    float amp = 0;
+    for (Wave w : waves) {
+      amp += w.getAmp(x,y);
+    }
+    return amp * amp;
+  }
+  void display() {
+    for (int y = 0; y < height; y+=2) {
+      float intensity = getIntensity(distance-50,y);
+      float brightness = intensity * 255;
+      stroke(c,brightness);
+      line(width-100,y,width,y);
+    }
+  }
+}
 //class Detector {
 //  float distance;
 //  ArrayList<Wave> waves;
