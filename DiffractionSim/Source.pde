@@ -10,7 +10,7 @@ class Source {
   
   // filler values for wave
   Wave generateWave() {
-    Wave wave = new Wave(xpos, waveType, 700e-9);
+    Wave wave = new Wave(xpos, waveType, 300-9);
     return wave;
   }
   
