@@ -9,7 +9,7 @@ boolean paused = false;
 
 void setup(){
   size(600, 600);
-  frameRate(10);
+  frameRate(30);
   
   // setting up slit(s)
   MODE = SINGLE_SLIT;
@@ -48,7 +48,6 @@ void draw(){
       }
     }
     wave.display();
-    wave.removeOffScreen();
   }
   slit.display();
 }

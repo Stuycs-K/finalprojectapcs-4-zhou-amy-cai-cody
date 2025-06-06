@@ -139,14 +139,6 @@ class Wave {
     float pos = points.get(0).getX();
     return pos >= width/2;
   }
-  
-  void removeOffScreen() {
-    for (int i = points.size()-1; i > 0; i--) {
-      if (points.get(i).offScreen) {
-        points.remove(i); 
-      }
-    }
-  }
 
   void changeType() {
     WAVE_TYPE = SPHERICAL;
@@ -188,9 +180,6 @@ class Wave {
   }
 
   void display() {
-    for (Point point : points) {
-      point.checkOffScreen();
-    }
     if (WAVE_TYPE == SPHERICAL) {
       Point point = points.get(0);
       float r = dist(point.getX(),point.getY(),originalPos.x, originalPos.y);
@@ -206,38 +195,14 @@ class Wave {
       for (int i = 0; i < points.size()-1; i++) {
         Point point1 = points.get(i);
         Point point2 = points.get(i+1);
-        if (!point1.offScreen && !point2.offScreen) {
-          line(point1.getX(), point1.getY(), point2.getX(), point2.getY());
-        }
+        line(point1.getX(), point1.getY(), point2.getX(), point2.getY());
       }
     }
     if (MODE == DOUBLE_SLIT) {
-      //for (int i = 0; i < points.size()-2; i++) {
-      //  Point point1 = points.get(i);
-      //  Point point2 = points.get(i+2);
-      //  if (!point1.offScreen && !point2.offScreen) {
-      //    line(point1.getX(), point1.getY(), point2.getX(), point2.getY());
-      //  }
-      }
-      Point prev = null;
-      for (int i = 0; i < points.size(); i+=2) {
-        Point current = points.get(i);
-        if (!current.offScreen) {
-          if (prev != null) {
-            line(prev.getX(), prev.getY(), current.getX(), current.getY()); 
-          }
-          prev = current;
-        }
-      }
-      prev = null;
-      for (int i = 1; i < points.size(); i+=2) {
-        Point current = points.get(i);
-        if (!current.offScreen) {
-          if (prev != null) {
-            line(prev.getX(), prev.getY(), current.getX(), current.getY()); 
-          }
-          prev = current;
-        }
+      for (int i = 0; i < points.size()-2; i++) {
+        Point point1 = points.get(i);
+        Point point2 = points.get(i+2);
+        line(point1.getX(), point1.getY(), point2.getX(), point2.getY());
       }
     }
   }
