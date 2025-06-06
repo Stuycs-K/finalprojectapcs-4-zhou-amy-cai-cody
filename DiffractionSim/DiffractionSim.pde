@@ -5,10 +5,11 @@ static int DOUBLE_SLIT = 2;
 Slit slit;
 ArrayList<Source> sources;
 ArrayList<Wave> waves;
+boolean paused = false;
 
 void setup(){
   size(600, 600);
-  frameRate(30);
+  frameRate(10);
   
   // setting up slit(s)
   MODE = SINGLE_SLIT;
@@ -38,18 +39,24 @@ void draw(){
   background(0);
   for (int i = 0; i < waves.size(); i++) {
     Wave wave = waves.get(i);
-    if (frameCount >= i * 5) {
-      wave.propagate(); 
-    }
-    if (wave.hitSlit()) {
-      wave.changeType(); 
+    if (!paused) {
+      if (frameCount >= i * 5) {
+        wave.propagate(); 
+      }
+      if (wave.hitSlit()) {
+        wave.changeType(); 
+      }
     }
     wave.display();
+    wave.removeOffScreen();
   }
   slit.display();
 }
 
 void keyPressed() {
+  if (key == 'p') {
+    paused = !paused; 
+  }
   if (key == '1') {
     MODE = SINGLE_SLIT;
     reset();
