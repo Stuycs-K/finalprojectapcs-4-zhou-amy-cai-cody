@@ -7,19 +7,20 @@ class Detector {
     this.c = c;
     this.waves = waves;
   }
-  float getIntensity(float x, float y){
+  
+  float getIntensity(float y){
     float amp = 0;
     for (Wave w : waves) {
-      amp += w.getAmp(x,y);
+      amp += w.getAmp(distance-50,y);
     }
     return amp * amp;
   }
   void display() {
     for (int y = 0; y < height; y+=2) {
-      float intensity = getIntensity(distance-50,y);
-      float brightness = intensity * 255;
+      float intensity = getIntensity(y);
+      float brightness = map(intensity, 0.0, 10e4, 0.0, 255.0);
       stroke(c,brightness);
-      line(width-100,y,width,y);
+      line(distance-100,y,distance,y);
     }
   }
 }

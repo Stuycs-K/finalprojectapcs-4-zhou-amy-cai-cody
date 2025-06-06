@@ -77,7 +77,7 @@ class Wave {
   Wave(float startPos, int type, float wavelength){
     points = new ArrayList<Point>();
     this.wavelength = wavelength;
-    float w = wavelength;
+    float w = wavelength * 10e9;
     float r = 0;
     float b = 0;
     float g = 0;
@@ -179,23 +179,34 @@ class Wave {
     }
   }
   
-  boolean closeEnough(float a,float b, float c, float d){
-    //How can you determine if two values are close enough to eachother?
-    //you write this later
-    //from triangle lab
-    if (a == 0 || b == 0) {
-      return a == 0 && b == 0;
-    }
-    else {
-      return dist(a,b,c,d) < 10;
-    }
-  }
+  //float calcDiff(float x, float y, float slitY) {
+  //  float k = TWO_PI / wavelength;
+  //  float toSlit = dist(originalPos.x, originalPos.y, width/2, slitY);
+  //  float toPoint = dist (width/2, slitY, x, y);
+  //  float total = toSlit + toPoint;
+  //  return this.amplitude / (wavelength * sqrt(toSlit*toPoint));
+  //}
+  //boolean closeEnough(float a,float b, float c, float d){
+  //  //How can you determine if two values are close enough to eachother?
+  //  //you write this later
+  //  //from triangle lab
+  //  if (a == 0 || b == 0) {
+  //    return a == 0 && b == 0;
+  //  }
+  //  else {
+  //    return dist(a,b,c,d) < 10;
+  //  }
+  //}
   float getAmp(float x, float y) {
     float totalAmp = 0;
     for (Point p : points) {
-      if (closeEnough(p.position.x, x, p.position.y, y)) {
-        totalAmp += p.getAmp();
-      }
+      float dist = dist(p.getX(), p.getY(), x, y);
+      if (dist < 0.1) dist = 0.1;
+      float phase = (dist / wavelength) * TWO_PI;
+      totalAmp += (p.getAmp() / sqrt(dist)) * sin(phase);
+      //if (closeEnough(p.position.x, x, p.position.y, y)) {
+      //  totalAmp += p.getAmp();
+      //}
     }
     return totalAmp;
   }
