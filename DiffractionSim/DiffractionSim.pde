@@ -74,6 +74,7 @@ void reset() {
     Wave wave = sources.get(0).generateWave();
     waves.add(wave);
   }
+  detector = new Detector(width, waves.get(0).c, waves);
   slit = new Slit(MODE, 1);
   frameCount = 0;
 }
