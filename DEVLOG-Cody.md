@@ -30,3 +30,7 @@ After today's MVP suggestions, I rewrote the Wave class to use be a locus of a n
 ### 2025-06-03 - Wave Display and Simulation Setup
 
 I changed the display() function for Wave to display a smooth wavefront rather than multiple points. Then I rewrote the setup() and draw() methods using the new Wave, Point, and Source classes to run the simulation smoothly.
+
+### 2025-06-04 - Working on Simulation
+
+Worked on making the waves display as gradients and removing the points once they go off screen. Also began working on the Detector and Interference classes.
