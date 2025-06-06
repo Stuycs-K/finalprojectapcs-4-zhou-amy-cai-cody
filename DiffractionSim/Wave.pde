@@ -206,6 +206,7 @@ class Wave {
     }
     return totalAmp;
   }
+ 
   void display() {
     if (WAVE_TYPE == SPHERICAL) {
       Point point = points.get(0);
