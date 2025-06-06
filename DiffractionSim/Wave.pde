@@ -15,60 +15,6 @@ import java.util.*;
 //  boolean converted = false;
 //  boolean active = true;
 
-//  Wave (float x, float y, float wavelength, float speed, float amplitude, int type, float t) {
-//    this.wavelength = wavelength;
-//    this.speed = speed;
-//    this.maxAmplitude = amplitude;
-//    this.amplitude = amplitude;
-//    frequency = speed / wavelength;
-//    position = new PVector(x, y);
-//    originalPos = new PVector(x,y);
-//    velocity = new PVector(speed, 0);
-//    WAVE_TYPE = type;
-//    this.time = t;
-//    //code for wavelength --> hex
-//    float r = 0.0;
-//    float g = 0.0;
-//    float b = 0.0;
-//    float w = wavelength;
-//    if (380 <= w && w < 400) {
-//      r = -(w-440) / (440-380);
-//      b = 1.0;
-//    }
-//    else if (w < 490) {
-//      g = (w-440) / (490-440);
-//      b = 1.0;
-//    }
-//    else if (w < 510) {
-//      g = 1.0;
-//      b = -(w-510)/(510-490);
-//    }
-//    else if (w < 580) {
-//      r = (w-510) / (580-510);
-//      g = 1.0;
-//    }
-//    else {
-//      r = 1.0;
-//    }
-//    c = color(r*255,g*255,b*255);
-//  }
-//  color getColor() {
-//    return c;
-//  }
-//  // in code, treat like a ray; visually, it will be a planar/spherical wave
-//  void propagate(float t) {
-//    if (WAVE_TYPE == PLANAR) {
-//      position = PVector.add(originalPos, PVector.mult(velocity, t-time));
-//    }
-//    else {
-//     position = PVector.add(position, velocity);
-//     distance += velocity.mag();
-//    }
-//  }
-
-//  float getDist() {
-//    return distance;
-//  }
 
 //  float getPhase(float x, float y) {
 //    float r = dist(x,y,position.x, position.y);
@@ -87,7 +33,7 @@ import java.util.*;
 //      return amp * sin(getPhase(x,y) - frequency * (t-time));
 //    }
 //  }
-  
+
 //  void changeType() {
 //    WAVE_TYPE++;
 //    WAVE_TYPE%=2;
@@ -111,7 +57,7 @@ import java.util.*;
 //      circle(originalPos.x, originalPos.y, r);
 //    }
 //  }
-  
+
 //  boolean hitSlit() {
 //    if (converted || WAVE_TYPE == SPHERICAL) return false;
 //    return (position.x >= width /2.5 && position.x < width/2.5 + 20 && abs(position.y - height/2) < 50);
@@ -124,37 +70,83 @@ class Wave {
   static final int PLANAR = 0;
   static final int SPHERICAL = 1;
   ArrayList<Point> points;
-  
-  Wave(float startPos, int type){
+  PVector originalPos;
+  float wavelength;
+  color c;
+
+  Wave(float startPos, int type, float wavelength){
     points = new ArrayList<Point>();
+    this.wavelength = wavelength;
+    float w = wavelength;
+    float r = 0;
+    float b = 0;
+    float g = 0;
+    if (380 <= w && w < 400) {
+      r = -(w-440) / (440-380);
+      b = 1.0;
+    }
+    else if (w < 490) {
+      g = (w-440) / (490-440);
+      b = 1.0;
+    }
+    else if (w < 510) {
+      g = 1.0;
+      b = -(w-510)/(510-490);
+    }
+    else if (w < 580) {
+      r = (w-510) / (580-510);
+      g = 1.0;
+    }
+    else {
+      r = 1.0;
+    }
+    c = color(r*255,g*255,b*255);
     for (int i = 0; i < height; i+=10) {
-      Point point = new Point(startPos, i, 10, 10);
+      Point point = new Point(startPos, i, 10, 10, c);
       points.add(point);
     }
     WAVE_TYPE = type;
+    originalPos = new PVector(startPos, 0);
+    originalPos = new PVector(startPos, 0);
+    WAVE_TYPE = type;
   }
-  
+
+  ArrayList<Point> getPoints() {
+    return points;
+  }
+
   void propagate() {
-    for (Point point : points) {
-      point.move();
+    if (WAVE_TYPE == SPHERICAL) {
+      for (Point point : points) {
+        float r = dist(point.getX(),point.getY(),originalPos.x, originalPos.y);
+        float factor = 1/max(1,r*0.1);
+        point.setAmplitude(point.getAmp() * factor);
+        fill(c, (point.getAmp() / point.maxAmp) * 255 );
+        point.move();
+      }
+    }
+    else {
+      for (Point point : points) {
+        point.move();
+      }
     }
   }
-  
+
   boolean hitSlit() {
     if (WAVE_TYPE == SPHERICAL) {
       return false;
     }
-    float pos = points.get(0).position.x;
+    float pos = points.get(0).getX();
     return pos >= width/2;
   }
-  
+
   void changeType() {
     WAVE_TYPE = SPHERICAL;
     int numPoints = points.size();
     points.clear();
     if (MODE == SINGLE_SLIT) {
       for (int i = 0; i < numPoints; i++) {
-        Point point = new Point(width/2+20, height/2, 10, 10);
+        Point point = new Point(width/2+20, height/2, 10, 10, c);
         point.velocity.rotate(HALF_PI);
         points.add(point);
       }
@@ -169,9 +161,9 @@ class Wave {
       for (int i = 0; i < numPoints; i++) {
         Point point;
         if (i % 2 == 0) {
-          point = new Point(width/2+20, height/2-55, 10, 10);
+          point = new Point(width/2+20, height/2-55, 10, 10, c);
         } else {
-          point = new Point(width/2+20, height/2+45, 10, 10);
+          point = new Point(width/2+20, height/2+45, 10, 10, c);
         }
         point.velocity.rotate(HALF_PI);
         points.add(point);
@@ -186,27 +178,34 @@ class Wave {
       }
     }
   }
-  
+
   void display() {
+    if (WAVE_TYPE == SPHERICAL) {
+      Point point = points.get(0);
+      float r = dist(point.getX(),point.getY(),originalPos.x, originalPos.y);
+      float factor = 25/max(1,r*0.1);
+      blendMode(REPLACE);
+      stroke(c, factor*255);
+    }
+    else {
+      stroke(c);
+    }
+    strokeWeight(5);
     if (MODE == SINGLE_SLIT) {
-      stroke(0, 0, 255);
-      strokeWeight(10);
       for (int i = 0; i < points.size()-1; i++) {
-        Point first = points.get(i);
-        Point second = points.get(i+1);
-        line(first.position.x, first.position.y, second.position.x, second.position.y);
+        Point point1 = points.get(i);
+        Point point2 = points.get(i+1);
+        line(point1.getX(), point1.getY(), point2.getX(), point2.getY());
       }
     }
     if (MODE == DOUBLE_SLIT) {
-      stroke(0, 0, 255);
-      strokeWeight(10);
       for (int i = 0; i < points.size()-2; i++) {
-        Point first = points.get(i);
-        Point second = points.get(i+2);
-        line(first.position.x, first.position.y, second.position.x, second.position.y);
+        Point point1 = points.get(i);
+        Point point2 = points.get(i+2);
+        line(point1.getX(), point1.getY(), point2.getX(), point2.getY());
       }
     }
   }
-  
-  
+
+
 }
