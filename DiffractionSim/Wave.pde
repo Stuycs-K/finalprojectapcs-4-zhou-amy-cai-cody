@@ -218,14 +218,3 @@ import java.util.*;
 
 
 //}
-class Wave {
-  int PLANAR = 0;
-  int SPHERICAL = 1;
-  int WAVE_TYPE;
-  
-  Wave (){
-    
-  }
-  
-  
-}
