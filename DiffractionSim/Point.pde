@@ -1,27 +1,23 @@
 class Point {
-  PVector position, velocity;
+  float xPos, yPos;
   float maxAmp;
   float amplitude;
   color c;
 
-  Point (float x, float y, float speed, float amplitude, color c) {
-    position = new PVector(x, y);
-    velocity = new PVector(speed, 0);
+  Point (float x, float y, float amplitude, color c) {
+    this.xPos = x;
+    this.yPos = y;
     this.amplitude = amplitude;
     this.maxAmp = amplitude;
     this.c = c;
   }
 
-  void move() {
-    position = PVector.add(position, velocity);
-  }
-
   float getX() {
-    return position.x;
+    return xPos;
   }
 
   float getY() {
-    return position.y;
+    return yPos;
   }
 
   float getAmp() {
@@ -32,5 +28,8 @@ class Point {
     this.amplitude = amp;
   }
 
+  void display() {
+     
+  }
 
 }
