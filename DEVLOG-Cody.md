@@ -34,3 +34,7 @@ I changed the display() function for Wave to display a smooth wavefront rather t
 ### 2025-06-04 - Working on Simulation
 
 Worked on making the waves display as gradients and removing the points once they go off screen. Also began working on the Detector and Interference classes.
+
+### 2025-06-06 - Reworking Point and Wave Classes
+
+After todays suggestions, we decided to rework how waves are displayed and the behavior of Points. I used a 2d array of points and filled the screen with points instead of previously displaying select points.
