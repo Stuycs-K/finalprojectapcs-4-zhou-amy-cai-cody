@@ -1,16 +1,17 @@
 class Point {
   float xPos, yPos;
+  int WAVE_TYPE;
   float maxAmplitude, amplitude;
   float wavelength;
   color c;
-  
 
-  Point (float x, float y, float amplitude, float wavelength) {
+  Point (float x, float y, float amplitude, float wavelength, int WAVE_TYPE) {
     this.xPos = x;
     this.yPos = y;
     this.amplitude = amplitude;
     this.maxAmplitude = amplitude;
     this.wavelength = wavelength;
+    this.WAVE_TYPE = WAVE_TYPE;
     float r = 0;
     float g = 0;
     float b = 0;
@@ -57,11 +58,19 @@ class Point {
   void setAmplitude(float amp) {
     this.amplitude = amp;
   }
+  
+  void propagate(Point[][] points, int col, int row) {
+    if (col+1 < points.length) {
+      color temp = points[col+1][row].c;
+      points[col+1][row].c = this.c;
+      this.c = temp;
+    }
+  }
 
   void display() {
      noStroke();
      fill(c);
-     square(xPos, yPos, 10);
+     square(xPos, yPos, 5);
   }
 
 }

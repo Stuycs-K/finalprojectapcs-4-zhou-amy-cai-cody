@@ -1,32 +1,37 @@
 static int MODE;
 static int SINGLE_SLIT = 1;
 static int DOUBLE_SLIT = 2;
-Point[][] points;
+static int PLANAR = 0;
+static int SPHERICAL = 1;
+static Point[][] points;
 //Detector detector;
-//Slit slit;
+Slit slit;
 //ArrayList<Source> sources;
 //ArrayList<Wave> waves;
 //boolean paused = false;
 
 void setup(){
   size(600, 600);
-  points = new Point[width/10][height/10];
   
-  for (int row = 0; row < points.length; row++) {
-    for (int col = 0; col < points[0].length; col++) {
-      // test color for now
-      int rand = int(random(380, 780));
-      Point point = new Point(10 * row, 10 * col, 10, rand);
-      points[row][col] = point;
+  // filling screen with points
+  points = new Point[width/5][height/5];
+  for (int col = 0; col < points.length; col++) {
+    for (int row = 0; row < points[0].length; row++) {
+      int startColor = 0;
+      if (col == 0) {
+         startColor = 450;
+      }
+      Point point = new Point(5 * col, 5 * row, 10, startColor, PLANAR);
+      points[col][row] = point;
       point.display();
     }
   }
   
 //  frameRate(30);
   
-//  // setting up slit(s)
-//  MODE = SINGLE_SLIT;
-//  slit = new Slit(MODE, 1);
+  // setting up slit(s)
+  MODE = SINGLE_SLIT;
+  slit = new Slit(MODE, 1);
   
 //  // setting up sources
 //  sources = new ArrayList<Source>();
@@ -43,12 +48,25 @@ void setup(){
 //  detector = new Detector(width, waves.get(0).c, waves);
   
 //  // displaying initial state
-//  slit.display();
+  slit.display();
 
 }
   
-//void draw(){
-//  background(0);
+void draw(){
+  
+  for (int col = points.length-2; col >= 0; col--) {
+    for (int row = 0; row < points[0].length; row++) {
+      points[col][row].propagate(points, col, row);
+    } 
+  }
+  
+  // displays
+  for (int col = 0; col < points.length; col++) {
+    for (int row = 0; row < points[0].length; row++) {
+      points[col][row].display(); 
+    }
+  }
+  slit.display();
 //  for (int i = 0; i < waves.size(); i++) {
 //    Wave wave = waves.get(i);
 //    if (!paused) {
@@ -63,7 +81,7 @@ void setup(){
 //  }
 //  slit.display();
 //  detector.display();
-//}
+}
 
 //void keyPressed() {
 //  if (key == 'p') {
