@@ -12,7 +12,11 @@ class Point {
     this.maxAmplitude = amplitude;
     this.wavelength = wavelength;
     this.WAVE_TYPE = WAVE_TYPE;
-    float r = 0;
+    this.c = wavelengthToColor(wavelength);
+  }
+  
+  color wavelengthToColor(float wavelength) {
+     float r = 0;
     float g = 0;
     float b = 0;
     if (wavelength >= 380 && wavelength < 440) {
@@ -40,7 +44,7 @@ class Point {
       g = 0.0;
       b = 0.0;
     }
-    c = color(r*255, g*255, b*255);
+    return color(r*255, g*255, b*255);
   }
 
   float getX() {
@@ -59,12 +63,16 @@ class Point {
     this.amplitude = amp;
   }
   
-  void propagate(Point[][] points, int col, int row) {
-    if (col+1 < points.length) {
-      color temp = points[col+1][row].c;
-      points[col+1][row].c = this.c;
-      this.c = temp;
+  void colorColumn(Point[][] points, int c, float wavelength) {
+    for (int r = 0; r < points.length; r++) {
+      points[c][r].c = wavelengthToColor(wavelength);
     }
+  }
+  
+  void switchColors(Point target) {
+    color temp = this.c;
+    this.c = target.c;
+    target.c = temp;
   }
 
   void display() {

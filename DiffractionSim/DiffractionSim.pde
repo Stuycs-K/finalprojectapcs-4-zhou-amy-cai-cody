@@ -3,7 +3,8 @@ static int SINGLE_SLIT = 1;
 static int DOUBLE_SLIT = 2;
 static int PLANAR = 0;
 static int SPHERICAL = 1;
-static Point[][] points;
+Point[][] points;
+ArrayList<Integer> wavePositions;
 //Detector detector;
 Slit slit;
 //ArrayList<Source> sources;
@@ -12,22 +13,21 @@ Slit slit;
 
 void setup(){
   size(600, 600);
+  frameRate(25);
+  background(0);
   
   // filling screen with points
-  points = new Point[width/5][height/5];
-  for (int col = 0; col < points.length; col++) {
-    for (int row = 0; row < points[0].length; row++) {
-      int startColor = 0;
-      if (col == 0) {
-         startColor = 450;
-      }
-      Point point = new Point(5 * col, 5 * row, 10, startColor, PLANAR);
-      points[col][row] = point;
-      point.display();
+  points = new Point[height/5][width/5];
+  for (int r = 0; r < points.length; r++) {
+    for (int c = 0; c < points[0].length; c++) {
+      points[r][c] = new Point(5 * r, 5 * c, 10, 0, PLANAR);
     }
   }
   
-//  frameRate(30);
+  // setting up waves
+  wavePositions = new ArrayList<Integer>();
+  points[0][0].colorColumn(points, 0, 450);
+  wavePositions.add(0);
   
   // setting up slit(s)
   MODE = SINGLE_SLIT;
@@ -54,34 +54,40 @@ void setup(){
   
 void draw(){
   
-  for (int col = points.length-2; col >= 0; col--) {
-    for (int row = 0; row < points[0].length; row++) {
-      points[col][row].propagate(points, col, row);
-    } 
+  // wave movement
+  for (int i = wavePositions.size() - 1; i >= 0; i--) {
+    int col = wavePositions.get(i);
+    if (col < points.length - 1) {
+      // moves wave to the right
+      for (int r = 0; r < points[0].length; r++) {
+        points[col][r].switchColors(points[col + 1][r]);
+      }
+      // increase wave x position
+      wavePositions.set(i, col + 1);
+    } else {
+      // removing wave
+      points[0][0].colorColumn(points, col, color(0));
+      wavePositions.remove(i);
+    }
+  }
+  
+  // creating new waves after 20 frames
+  if (frameCount % 10 == 0) {
+    wavePositions.add(0);
+    points[0][0].colorColumn(points, 0, 450);
   }
   
   // displays
-  for (int col = 0; col < points.length; col++) {
-    for (int row = 0; row < points[0].length; row++) {
-      points[col][row].display(); 
+  for (int r = 0; r < points.length; r++) {
+    for (int c = 0; c < points[0].length; c++) {
+      points[c][r].display(); 
     }
   }
   slit.display();
-//  for (int i = 0; i < waves.size(); i++) {
-//    Wave wave = waves.get(i);
-//    if (!paused) {
-//      if (frameCount >= i * 5) {
-//        wave.propagate(); 
-//      }
-//      if (wave.hitSlit()) {
-//        wave.changeType(); 
-//      }
-//    }
-//    wave.display();
-//  }
-//  slit.display();
-//  detector.display();
+  
 }
+
+
 
 //void keyPressed() {
 //  if (key == 'p') {
