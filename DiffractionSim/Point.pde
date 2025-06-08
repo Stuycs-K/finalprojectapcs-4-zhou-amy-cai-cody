@@ -1,9 +1,9 @@
 class Point {
   float xPos, yPos;
-  int WAVE_TYPE;
   float maxAmplitude, amplitude;
   float wavelength;
   color c;
+  int WAVE_TYPE;
 
   Point (float x, float y, float amplitude, float wavelength, int WAVE_TYPE) {
     this.xPos = x;
@@ -11,8 +11,8 @@ class Point {
     this.amplitude = amplitude;
     this.maxAmplitude = amplitude;
     this.wavelength = wavelength;
-    this.WAVE_TYPE = WAVE_TYPE;
     this.c = wavelengthToColor(wavelength);
+    this.WAVE_TYPE = WAVE_TYPE;
   }
   
   color wavelengthToColor(float wavelength) {
@@ -69,10 +69,33 @@ class Point {
     }
   }
   
+  void clearColumn(Point[][] points, int col) {
+    for (int r = 0; r < points[0].length; r++) {
+      points[col][r].c = color(0); 
+    }
+  }
+  
   void switchColors(Point target) {
     color temp = this.c;
     this.c = target.c;
     target.c = temp;
+  }
+  
+  void radiate(Point[][] points, int c, int r) {
+    if (c < 0 || c >= points.length || r < 0 || r >= points[0].length || c == points.length - 1) {
+      return;
+    }
+    int[][] directions = {{1, 0}, {1, -1}, {1, 1}};
+    for (int[] direction : directions) {
+      int nextC = c + direction[0];
+      int nextR = r + direction[1];
+      if (nextC >= 0 && nextC < points.length && nextR >= 0 && nextR < points[0].length) {
+        if (points[nextC][nextR].c == color(0)) {
+          points[c][r].switchColors(points[nextC][nextR]);
+          points[nextC][nextR].radiate(points, nextC, nextR); 
+        }
+      }
+    }
   }
 
   void display() {

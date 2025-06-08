@@ -1,8 +1,9 @@
+import java.util.*;
 static int MODE;
 static int SINGLE_SLIT = 1;
 static int DOUBLE_SLIT = 2;
-static int PLANAR = 0;
-static int SPHERICAL = 1;
+static int PLANAR = 1;
+static int SPHERICAL = 2;
 Point[][] points;
 ArrayList<Integer> wavePositions;
 //Detector detector;
@@ -17,10 +18,10 @@ void setup(){
   background(0);
   
   // filling screen with points
-  points = new Point[height/5][width/5];
-  for (int r = 0; r < points.length; r++) {
-    for (int c = 0; c < points[0].length; c++) {
-      points[r][c] = new Point(5 * r, 5 * c, 10, 0, PLANAR);
+  points = new Point[width/5][height/5];
+  for (int c = 0; c < points.length; c++) {
+    for (int r = 0; r < points[0].length; r++) {
+      points[c][r] = new Point(c * 5, r * 5, 10, 0, PLANAR);
     }
   }
   
@@ -32,17 +33,6 @@ void setup(){
   // setting up slit(s)
   MODE = SINGLE_SLIT;
   slit = new Slit(MODE, 1);
-  
-//  // setting up sources
-//  sources = new ArrayList<Source>();
-//  sources.add(new Source(0, height/2, 0));
-  
-//  // setting up waves
-//  waves = new ArrayList<Wave>();
-//  for (int i = 0; i < 10; i++) {
-//    Wave wave = sources.get(0).generateWave();
-//    waves.add(wave);
-//  }
   
 //  //setting up detector
 //  detector = new Detector(width, waves.get(0).c, waves);
@@ -56,18 +46,31 @@ void draw(){
   
   // wave movement
   for (int i = wavePositions.size() - 1; i >= 0; i--) {
-    int col = wavePositions.get(i);
-    if (col < points.length - 1) {
-      // moves wave to the right
-      for (int r = 0; r < points[0].length; r++) {
-        points[col][r].switchColors(points[col + 1][r]);
+    int wavePos = wavePositions.get(i);
+    
+    if (points[0][wavePos].WAVE_TYPE == PLANAR) {
+      if (wavePos < points.length - 1) {
+        // moves wave to the right
+        for (int r = 0; r < points[0].length; r++) {
+          points[wavePos][r].switchColors(points[wavePos + 1][r]);
+        }
+        // increase wave x position
+        wavePositions.set(i, wavePos + 1);
+      } else {
+        // removing wave
+        points[0][0].colorColumn(points, wavePos, color(0));
+        wavePositions.remove(i);
       }
-      // increase wave x position
-      wavePositions.set(i, col + 1);
-    } else {
-      // removing wave
-      points[0][0].colorColumn(points, col, color(0));
-      wavePositions.remove(i);
+    }
+    int slitPos = (width/2 + 20) / 5;
+    if (wavePos == slitPos) {
+      points[0][wavePos].WAVE_TYPE = SPHERICAL;
+      // clearing planar wave
+      System.out.println("here");
+      points[0][0].clearColumn(points, slitPos);
+      for (int r = 0; r < points[0].length; r++) {
+        points[slitPos][r].radiate(points, slitPos, r);
+      }
     }
   }
   
@@ -78,9 +81,9 @@ void draw(){
   }
   
   // displays
-  for (int r = 0; r < points.length; r++) {
-    for (int c = 0; c < points[0].length; c++) {
-      points[c][r].display(); 
+  for (int c = 0; c < points.length; c++) {
+    for (int r = 0; r < points[0].length; r++) {
+      points[c][r].display();
     }
   }
   slit.display();
