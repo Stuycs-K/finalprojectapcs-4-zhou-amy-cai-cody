@@ -1,120 +1,79 @@
-import java.util.*;
 static int MODE;
 static int SINGLE_SLIT = 1;
 static int DOUBLE_SLIT = 2;
-static int PLANAR = 1;
-static int SPHERICAL = 2;
-Point[][] points;
-ArrayList<Integer> wavePositions;
 //Detector detector;
 Slit slit;
-//ArrayList<Source> sources;
-//ArrayList<Wave> waves;
-//boolean paused = false;
+ArrayList<Source> sources;
+ArrayList<Wave> waves;
+boolean paused = false;
 
 void setup(){
   size(600, 600);
-  frameRate(25);
-  background(0);
-  
-  // filling screen with points
-  points = new Point[width/5][height/5];
-  for (int c = 0; c < points.length; c++) {
-    for (int r = 0; r < points[0].length; r++) {
-      points[c][r] = new Point(c * 5, r * 5, 10, 0, PLANAR);
-    }
-  }
-  
-  // setting up waves
-  wavePositions = new ArrayList<Integer>();
-  points[0][0].colorColumn(points, 0, 450);
-  wavePositions.add(0);
+  frameRate(20);
   
   // setting up slit(s)
   MODE = SINGLE_SLIT;
   slit = new Slit(MODE, 1);
   
-//  //setting up detector
-//  detector = new Detector(width, waves.get(0).c, waves);
+  // setting up sources
+  sources = new ArrayList<Source>();
+  sources.add(new Source(0, height/2, 0));
   
-//  // displaying initial state
+  // setting up waves
+  waves = new ArrayList<Wave>();
+  for (int i = 0; i < 10; i++) {
+    Wave wave = sources.get(0).generateWave();
+    waves.add(wave);
+  }
+  
+  //setting up detector
+  //detector = new Detector(width, waves);
+  //detector.display();
+  
+  // displaying initial state
   slit.display();
 
 }
   
 void draw(){
-  
-  // wave movement
-  for (int i = wavePositions.size() - 1; i >= 0; i--) {
-    int wavePos = wavePositions.get(i);
-    
-    if (points[0][wavePos].WAVE_TYPE == PLANAR) {
-      if (wavePos < points.length - 1) {
-        // moves wave to the right
-        for (int r = 0; r < points[0].length; r++) {
-          points[wavePos][r].switchColors(points[wavePos + 1][r]);
-        }
-        // increase wave x position
-        wavePositions.set(i, wavePos + 1);
-      } else {
-        // removing wave
-        points[0][0].colorColumn(points, wavePos, color(0));
-        wavePositions.remove(i);
+  background(0);
+  for (int i = 0; i < waves.size(); i++) {
+    Wave wave = waves.get(i);
+    if (!paused) {
+      if (frameCount >= i * 5) {
+        wave.propagate(); 
+      }
+      if (wave.hitSlit()) {
+        wave.changeType(); 
       }
     }
-    int slitPos = (width/2 + 20) / 5;
-    if (wavePos == slitPos) {
-      points[0][wavePos].WAVE_TYPE = SPHERICAL;
-      // clearing planar wave
-      System.out.println("here");
-      points[0][0].clearColumn(points, slitPos);
-      for (int r = 0; r < points[0].length; r++) {
-        points[slitPos][r].radiate(points, slitPos, r);
-      }
-    }
-  }
-  
-  // creating new waves after 20 frames
-  if (frameCount % 10 == 0) {
-    wavePositions.add(0);
-    points[0][0].colorColumn(points, 0, 450);
-  }
-  
-  // displays
-  for (int c = 0; c < points.length; c++) {
-    for (int r = 0; r < points[0].length; r++) {
-      points[c][r].display();
-    }
+    wave.display();
   }
   slit.display();
-  
 }
 
+void keyPressed() {
+  if (key == 'p') {
+    paused = !paused; 
+  }
+  if (key == '1') {
+    MODE = SINGLE_SLIT;
+    reset();
+  }
+  else if (key == '2') {
+    MODE = DOUBLE_SLIT;
+    reset();
+  }
+}
 
-
-//void keyPressed() {
-//  if (key == 'p') {
-//    paused = !paused; 
-//  }
-//  if (key == '1') {
-//    MODE = SINGLE_SLIT;
-//    reset();
-//  }
-//  else if (key == '2') {
-//    MODE = DOUBLE_SLIT;
-//    reset();
-//  }
-//}
-
-//void reset() {
-//  sources = new ArrayList<Source>();
-//  sources.add(new Source(0, height/2, 0));
-//  waves = new ArrayList<Wave>();
-//  for (int i = 0; i < 10; i++) {
-//    Wave wave = sources.get(0).generateWave();
-//    waves.add(wave);
-//  }
-//  detector = new Detector(width, waves.get(0).c, waves);
-//  slit = new Slit(MODE, 1);
-//  frameCount = 0;
-//}
+void reset() {
+  sources = new ArrayList<Source>();
+  sources.add(new Source(0, height/2, 0));
+  waves = new ArrayList<Wave>();
+  for (int i = 0; i < 10; i++) {
+    Wave wave = sources.get(0).generateWave();
+    waves.add(wave);
+  }
+  slit = new Slit(MODE, 1);
+  frameCount = 0;
+}
