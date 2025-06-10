@@ -22,7 +22,7 @@ void setup(){
   // setting up waves
   waves = new ArrayList<Wave>();
   for (int i = 0; i < 10; i++) {
-    Wave wave = sources.get(0).generateWave();
+    Wave wave = sources.get(0).generateWave(0, height/2);
     waves.add(wave);
   }
   
@@ -72,7 +72,7 @@ void reset() {
   sources.add(new Source(0, height/2, 0));
   waves = new ArrayList<Wave>();
   for (int i = 0; i < 10; i++) {
-    Wave wave = sources.get(0).generateWave();
+    Wave wave = sources.get(0).generateWave(0, height/2);
     waves.add(wave);
   }
   slit = new Slit(MODE, 1);

@@ -67,6 +67,7 @@ import java.util.*;
 
 class Wave {
   int WAVE_TYPE;
+  PVector position;
   static final int PLANAR = 0;
   static final int SPHERICAL = 1;
   ArrayList<Point> points;
@@ -74,9 +75,11 @@ class Wave {
   float wavelength;
   float amp;
   color c;
+  float speed = 3.0;
 
-  Wave(float startPos, int type, float wavelength){
+  Wave(float startPos, int type, float wavelength, float x, float y){
     points = new ArrayList<Point>();
+    position = new PVector(x, y);
     amp = 10;
     this.wavelength = wavelength;
     float w = wavelength;
@@ -117,28 +120,28 @@ class Wave {
     return points;
   }
   float getAmp (float x, float y) {
-    if (WAVE_TYPE == PLANAR) {
-      float dist = x-originalPos.x;
-      if (dist < 0) return 0;
-      float phase = (dist / wavelength) * TWO_PI;
-      return amp * sin(phase);
-    }
-    else {
-      float dist = dist(originalPos.x, originalPos.y, x, y);
-      if (dist == 0) return amp;
-      float phase = (dist / wavelength) * TWO_PI;
-      return (amp / dist) * sin(phase);
-    }
-    //      float totalAmp = 0;
-    //for (Point p : points) {
-    //  float dist = dist(p.getX(), p.getY(), x,y);
+    //if (WAVE_TYPE == PLANAR) {
+    //  float dist = x-originalPos.x;
+    //  if (dist < 0) return 0;
     //  float phase = (dist / wavelength) * TWO_PI;
-    //  totalAmp += p.getAmp() / sqrt(dist) * sin(phase);
+    //  return amp * sin(phase);
     //}
-    //return totalAmp;
+    //else {
+    //  float dist = dist(originalPos.x, originalPos.y, x, y);
+    //  if (dist == 0) return amp;
+    //  float phase = (dist / wavelength) * TWO_PI;
+    //  return (amp / dist) * sin(phase);
     //}
+    float totalAmp = 0;
+    for (Point p : points) {
+      float dist = dist(p.getX(), p.getY(), x,y);
+      float phase = (dist / wavelength) * TWO_PI;
+      totalAmp += p.getAmp() / sqrt(dist) * sin(phase);
+    }
+    return totalAmp;
   }
   void propagate() {
+    position.x += speed;
     if (WAVE_TYPE == SPHERICAL) {
       for (Point point : points) {
         float r = dist(point.getX(),point.getY(),originalPos.x, originalPos.y);

@@ -16,8 +16,19 @@ class Detector {
     }
     return amp * amp;
   }
-  
+  boolean isActive () {
+    for (Wave w : waves) {
+      println(w.position.x);
+      //println(distance);
+      if (abs(w.position.x - distance) < 100) {
+        //println("hi");
+        return true;
+      }
+    }
+    return false;
+  }
   void display() {
+    if (!isActive()) return;
     float maxIntensity = 0;
     for (int y = 0; y < height; y+=2) {
       float intensity = getIntensity(y);
