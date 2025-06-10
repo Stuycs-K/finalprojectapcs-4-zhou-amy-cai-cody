@@ -1,3 +1,6 @@
+class Interference {
+}
+
 //class Interference {
 //	ArrayList<Wave> waves;
 //	color c;

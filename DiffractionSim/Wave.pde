@@ -72,10 +72,12 @@ class Wave {
   ArrayList<Point> points;
   PVector originalPos;
   float wavelength;
+  float amp;
   color c;
 
   Wave(float startPos, int type, float wavelength){
     points = new ArrayList<Point>();
+    amp = 10;
     this.wavelength = wavelength;
     float w = wavelength;
     float r = 0;
@@ -114,7 +116,28 @@ class Wave {
   ArrayList<Point> getPoints() {
     return points;
   }
-
+  float getAmp (float x, float y) {
+    if (WAVE_TYPE == PLANAR) {
+      float dist = x-originalPos.x;
+      if (dist < 0) return 0;
+      float phase = (dist / wavelength) * TWO_PI;
+      return amp * sin(phase);
+    }
+    else {
+      float dist = dist(originalPos.x, originalPos.y, x, y);
+      if (dist == 0) return amp;
+      float phase = (dist / wavelength) * TWO_PI;
+      return (amp / dist) * sin(phase);
+    }
+    //      float totalAmp = 0;
+    //for (Point p : points) {
+    //  float dist = dist(p.getX(), p.getY(), x,y);
+    //  float phase = (dist / wavelength) * TWO_PI;
+    //  totalAmp += p.getAmp() / sqrt(dist) * sin(phase);
+    //}
+    //return totalAmp;
+    //}
+  }
   void propagate() {
     if (WAVE_TYPE == SPHERICAL) {
       for (Point point : points) {
@@ -123,6 +146,7 @@ class Wave {
         point.setAmplitude(point.getAmp() * factor);
         fill(c, (point.getAmp() / point.maxAmp) * 255 );
         point.move();
+        amp *= 0.99;
       }
     }
     else {
@@ -168,6 +192,7 @@ class Wave {
         point.velocity.rotate(HALF_PI);
         points.add(point);
       }
+      amp = 5;
       int k = 1;
       for (int i = 0; i < points.size(); i+=2) {
         Point first = points.get(i);
