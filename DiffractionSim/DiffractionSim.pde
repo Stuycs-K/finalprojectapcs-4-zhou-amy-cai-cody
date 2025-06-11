@@ -1,7 +1,7 @@
 static int MODE;
 static int SINGLE_SLIT = 1;
 static int DOUBLE_SLIT = 2;
-//Detector detector;
+Detector detector;
 Slit slit;
 ArrayList<Source> sources;
 ArrayList<Wave> waves;
@@ -22,13 +22,13 @@ void setup(){
   // setting up waves
   waves = new ArrayList<Wave>();
   for (int i = 0; i < 10; i++) {
-    Wave wave = sources.get(0).generateWave();
+    Wave wave = sources.get(0).generateWave(0, height/2);
     waves.add(wave);
   }
   
   //setting up detector
-  //detector = new Detector(width, waves);
-  //detector.display();
+  detector = new Detector(width, waves.get(0).c, waves);
+  detector.display();
   
   // displaying initial state
   slit.display();
@@ -50,6 +50,7 @@ void draw(){
     wave.display();
   }
   slit.display();
+  detector.display();
 }
 
 void keyPressed() {
@@ -71,9 +72,10 @@ void reset() {
   sources.add(new Source(0, height/2, 0));
   waves = new ArrayList<Wave>();
   for (int i = 0; i < 10; i++) {
-    Wave wave = sources.get(0).generateWave();
+    Wave wave = sources.get(0).generateWave(0, height/2);
     waves.add(wave);
   }
   slit = new Slit(MODE, 1);
+  detector = new Detector(width, waves.get(0).c, waves);
   frameCount = 0;
 }

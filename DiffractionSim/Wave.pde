@@ -67,15 +67,20 @@ import java.util.*;
 
 class Wave {
   int WAVE_TYPE;
+  PVector position;
   static final int PLANAR = 0;
   static final int SPHERICAL = 1;
   ArrayList<Point> points;
   PVector originalPos;
   float wavelength;
+  float amp;
   color c;
+  float speed = 10.0;
 
-  Wave(float startPos, int type, float wavelength){
+  Wave(float startPos, int type, float wavelength, float x, float y){
     points = new ArrayList<Point>();
+    position = new PVector(x, y);
+    amp = 10;
     this.wavelength = wavelength;
     float w = wavelength;
     float r = 0;
@@ -102,7 +107,7 @@ class Wave {
     }
     c = color(r*255,g*255,b*255);
     for (int i = 0; i < height; i+=10) {
-      Point point = new Point(startPos, i, 10, 10, c);
+      Point point = new Point(startPos, i, speed, 10, c);
       points.add(point);
     }
     WAVE_TYPE = type;
@@ -114,8 +119,29 @@ class Wave {
   ArrayList<Point> getPoints() {
     return points;
   }
-
+  float getAmp (float x, float y) {
+    //if (WAVE_TYPE == PLANAR) {
+    //  float dist = x-originalPos.x;
+    //  if (dist < 0) return 0;
+    //  float phase = (dist / wavelength) * TWO_PI;
+    //  return amp * sin(phase);
+    //}
+    //else {
+    //  float dist = dist(originalPos.x, originalPos.y, x, y);
+    //  if (dist == 0) return amp;
+    //  float phase = (dist / wavelength) * TWO_PI;
+    //  return (amp / dist) * sin(phase);
+    //}
+    float totalAmp = 0;
+    for (Point p : points) {
+      float dist = dist(p.getX(), p.getY(), x,y);
+      float phase = (dist / wavelength) * TWO_PI;
+      totalAmp += p.getAmp() / sqrt(dist) * sin(phase);
+    }
+    return totalAmp;
+  }
   void propagate() {
+    position.x += speed;
     if (WAVE_TYPE == SPHERICAL) {
       for (Point point : points) {
         float r = dist(point.getX(),point.getY(),originalPos.x, originalPos.y);
@@ -123,6 +149,7 @@ class Wave {
         point.setAmplitude(point.getAmp() * factor);
         fill(c, (point.getAmp() / point.maxAmp) * 255 );
         point.move();
+        amp *= 0.99;
       }
     }
     else {
@@ -168,6 +195,7 @@ class Wave {
         point.velocity.rotate(HALF_PI);
         points.add(point);
       }
+      amp = 5;
       int k = 1;
       for (int i = 0; i < points.size(); i+=2) {
         Point first = points.get(i);
