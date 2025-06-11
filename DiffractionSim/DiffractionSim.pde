@@ -103,6 +103,8 @@ void draw(){
     wave.display();
   }
   slit.display();
+  color c = wavelengthToColor(wavelength);
+  detector.display();
 
   // input box
   noStroke();
