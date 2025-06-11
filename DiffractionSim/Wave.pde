@@ -17,30 +17,7 @@ class Wave {
     position = new PVector(x, y);
     amp = 10;
     this.wavelength = wavelength;
-    float w = wavelength;
-    float r = 0;
-    float b = 0;
-    float g = 0;
-    if (380 <= w && w < 400) {
-      r = 0.3 * (-(w - 440) / (440 - 380));
-      b = 1.0;
-    }
-    else if (w < 490) {
-      g = (w-440) / (490-440);
-      b = 1.0;
-    }
-    else if (w < 510) {
-      g = 1.0;
-      b = -(w-510)/(510-490);
-    }
-    else if (w < 580) {
-      r = (w-510) / (580-510);
-      g = 1.0;
-    }
-    else {
-      r = 1.0;
-    }
-    c = color(r*255,g*255,b*255);
+    c = wavelengthToColor(wavelength);
     for (int i = 0; i < height; i+=10) {
       Point point = new Point(startPos, i, speed, 10, c);
       points.add(point);
@@ -84,7 +61,6 @@ class Wave {
     }
     c = color(r*255, g*255, b*255);
   }
-
   float getAmp (float x, float y) {
     //if (WAVE_TYPE == PLANAR) {
     //  float dist = x-originalPos.x;
