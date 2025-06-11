@@ -75,7 +75,7 @@ class Wave {
   float wavelength;
   float amp;
   color c;
-  float speed = 3.0;
+  float speed = 10.0;
 
   Wave(float startPos, int type, float wavelength, float x, float y){
     points = new ArrayList<Point>();
@@ -107,7 +107,7 @@ class Wave {
     }
     c = color(r*255,g*255,b*255);
     for (int i = 0; i < height; i+=10) {
-      Point point = new Point(startPos, i, 10, 10, c);
+      Point point = new Point(startPos, i, speed, 10, c);
       points.add(point);
     }
     WAVE_TYPE = type;
