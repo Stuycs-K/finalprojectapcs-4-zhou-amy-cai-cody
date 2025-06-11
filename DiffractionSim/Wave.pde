@@ -24,7 +24,6 @@ class Wave {
     }
     WAVE_TYPE = type;
     originalPos = new PVector(startPos, 0);
-    originalPos = new PVector(startPos, 0);
     WAVE_TYPE = type;
   }
 
@@ -76,10 +75,12 @@ class Wave {
     //}
     float totalAmp = 0;
     for (Point p : points) {
+      if (p == null) continue;
       float dist = dist(p.getX(), p.getY(), x,y);
       float phase = (dist / wavelength) * TWO_PI;
       totalAmp += p.getAmp() / sqrt(dist) * sin(phase);
     }
+    if (Float.isNaN(totalAmp)) return 0;
     return totalAmp;
   }
 

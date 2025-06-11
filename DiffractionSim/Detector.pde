@@ -14,6 +14,7 @@ class Detector {
       amp += w.getAmp(distance,y);
       //println(amp);
     }
+    if (Float.isNaN(amp)) return 0;
     return amp * amp;
   }
   
