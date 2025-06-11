@@ -1,5 +1,5 @@
 //class Detector {
-//  float distance; 
+//  float distance;
 //  ArrayList<Wave> waves;
 //  color c;
 //  Detector (float distance, color c, ArrayList<Wave> waves) {
@@ -7,7 +7,7 @@
 //    this.c = c;
 //    this.waves = waves;
 //  }
-  
+
 //  float getIntensity(float y){
 //    float amp = 0;
 //    for (Wave w : waves) {
@@ -16,7 +16,7 @@
 //    }
 //    return amp * amp;
 //  }
-  
+
 //  void display() {
 //    float maxIntensity = 0;
 //    for (int y = 0; y < height; y+= 4) {
@@ -41,7 +41,7 @@
 ////  float distance;
 ////  ArrayList<Wave> waves;
 ////  color c;
-  
+
 ////  Detector(float distance, ArrayList<Wave> wave ) {
 ////     this.distance = distance;
 ////     this.waves = wave;
