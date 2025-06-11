@@ -19,30 +19,38 @@ class Detector {
   
   boolean isActive () {
     for (Wave w : waves) {
-      println(w.position.x);
-      //println(distance);
-      if (abs(w.position.x - distance) < 100) {
-        //println("hi");
-        return true;
+      for (Point p : w.points) {
+        if (p.getX() >= distance - 50) {
+          return true;
+        }
       }
     }
     return false;
   }
+  //    //println(w.position.x);
+  //    //println(distance);
+  //    if (abs(w.position.x - distance) < 100) {
+  //      //println("hi");
+  //      return true;
+  //    }
+  //  }
+  //  return false;
+  //}
   
   void display() {
     if (!isActive()) return;
     float maxIntensity = 0;
-    for (int y = 0; y < height; y+=2) {
+    for (int y = 0; y < height; y+=10) {
       float intensity = getIntensity(y);
       if (intensity > maxIntensity) {
         maxIntensity = intensity;
       }
     }
-    for (int y = 0; y < height; y+=2) {
+    for (int y = 0; y < height; y+=1) {
       float intensity = getIntensity(y);
-      strokeWeight(2);
+      strokeWeight(5);
       float brightness = map(intensity,0,maxIntensity,0,255);
-      stroke (c, brightness);
+      stroke (c, brightness*0.90);
       line(distance-50,y,distance,y);
     }
   }
