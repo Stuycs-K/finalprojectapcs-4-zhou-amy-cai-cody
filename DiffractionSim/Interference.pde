@@ -19,7 +19,7 @@
 //	void display(float x, float y, float t) {
 //		fill(c, (getAmp(x,y,t)/maxAmp)*255);
 //		noStroke();
-//		circle(position.x, position.y, 4); 
+//		circle(position.x, position.y, 4);
 //	}
 //}
 //class Interference {
@@ -37,12 +37,12 @@
 //  	}
 //  	return instAmp;
 //  }
-  
+
 //  void display(float x, float y, float t) {
 //  	//wave.get(0).setAmp(getAmp(x,y,t));
 //  	//wave.get(1).setAmp(getAmp(x,y,t));
 //  	//wave.get(0).display;
 //  	//wave.get(1).display;
 //  }
-  
+
 //}
