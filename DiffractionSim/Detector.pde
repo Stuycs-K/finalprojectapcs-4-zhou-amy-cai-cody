@@ -48,6 +48,9 @@ class Detector {
 
   void display() {
     if (!isActive()) return;
+    stroke(255);
+    strokeWeight(5);
+    line(distance-50,0,distance-50,height);
     float maxIntensity = getIntensity(0);
     float minIntensity = getIntensity(0);
     for (int y = 0; y < height; y += 10) {
