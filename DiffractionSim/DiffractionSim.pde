@@ -92,7 +92,7 @@ void draw(){
 
   float frequency = cp5.getController("Frequency").getValue() * 1e14;
   float w = (3e8 / frequency) * 1e9;
-  this.wavelength = w;
+  wavelength = w;
 
   if (!paused && frameCount % 5 == 0) {
     float amp = 10;
@@ -160,4 +160,10 @@ void reset() {
   slit = new Slit(MODE, 1);
   detector = new Detector(width, wavelengthToColor(wavelength), waves);
   frameCount = 0;
+}
+
+void controlEvent(ControlEvent theEvent) {
+  if (theEvent.isFrom("Frequency")) {
+    reset();
+  }
 }
