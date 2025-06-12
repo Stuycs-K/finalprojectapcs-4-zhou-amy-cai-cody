@@ -93,9 +93,9 @@ void draw(){
   float w = (3e8 / frequency) * 1e9;
   wavelength = w;
 
-  if (!paused && frameCount % 8 == 0) {
+  if (!paused && frameCount % 5 == 0) {
     float amp = 10;
-    if (waves.size() % 2 == 0) {
+    if ((frameCount/5) % 2 == 0) {
       amp = -10;
     }
     Wave wave = sources.get(0).generateWave(0, height/2, w, amp);

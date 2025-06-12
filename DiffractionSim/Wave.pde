@@ -13,12 +13,13 @@ class Wave {
   float speed = 10.0;
   boolean active = true;
 
-  Wave(float startPos, int type, float wavelength, float x, float y){
+  Wave(float startPos, int type, float wavelength, float x, float y, float amp){
     points = new ArrayList<Point>();
     position = new PVector(x, y);
     this.wavelength = wavelength;
+    this.amp = amp;
     for (int i = 0; i < height; i+=10) {
-      Point point = new Point(startPos, i, speed, 10);
+      Point point = new Point(startPos, i, speed, amp);
       points.add(point);
     }
     WAVE_TYPE = type;
@@ -90,13 +91,19 @@ class Wave {
 
   float getAmp(float x, float y) {
     float totalAmp = 0;
+    int count = 0;
+  
     for (Point p : points) {
-      if (p == null) continue;
-      float dist = dist(p.getX(), p.getY(), x,y);
-      float phase = (dist / wavelength) * TWO_PI;
-      totalAmp += p.getAmp() / sqrt(dist) * sin(phase);
+      float d = dist(p.getX(), p.getY(), x, y);
+      if (d == 0) continue;
+  
+      float phase = (d / wavelength) * TWO_PI;
+      float ampContribution = (p.getAmp() * sin(phase)) / sqrt(d);
+      totalAmp += ampContribution;
+      count++;
     }
-    if (Float.isNaN(totalAmp)) return 0;
+  
+    if (count == 0) return 0;
     return totalAmp;
   }
 
@@ -166,14 +173,18 @@ class Wave {
 
   void display() {
     blendMode(REPLACE);
+    float opacity = 1;
+    if (amp < 0) {
+      opacity = 0.5;
+    }
     if (WAVE_TYPE == SPHERICAL) {
       Point point = points.get(0);
       float r = dist(point.getX(),point.getY(),originalPos.x, originalPos.y);
       float factor = 35/max(1,r*0.1);
-      stroke(c, factor*255);
+      stroke(c, factor * 255 * opacity);
     }
     else {
-      stroke(c);
+      stroke(c, 255 * opacity);
     }
     strokeWeight(10);
     if (MODE == SINGLE_SLIT) {
