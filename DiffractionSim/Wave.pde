@@ -46,10 +46,10 @@ class Wave {
     }
   }
   
-  void updateWavelength(float newWavelength) {
-    this.wavelength = newWavelength;
+  void updateWavelength(float newW) {
+    this.wavelength = newW;
 
-    float w = newWavelength;
+    float w = newW;
     float r = 0.0;
     float g = 0.0;
     float b = 0.0;
