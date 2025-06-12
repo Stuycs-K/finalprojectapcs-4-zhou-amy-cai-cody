@@ -38,3 +38,11 @@ Worked on making the waves display as gradients and removing the points once the
 ### 2025-06-06 - Reworking Point and Wave Classes
 
 After todays suggestions, we decided to rework how waves are displayed and the behavior of Points. I used a 2d array of points and filled the screen with points instead of previously displaying select points.
+
+### 2025-06-06/7 - Continued Working on Wave Gradient and Interference Visuals
+
+Tried to use the array of points and create a gradient between peaks of the waves. Also tried implementing a BFS algorithm for the spherical waves.
+
+### 2025-06-10/11 - Working on Displaying Interference Pattern
+
+Reverted to old version of displaying waves as collections of points with associated position and velocity PVectors. Trying to get the Detector class to work and display the interference pattern.
