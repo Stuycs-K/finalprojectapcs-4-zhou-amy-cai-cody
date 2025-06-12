@@ -11,6 +11,7 @@ class Wave {
   float amp;
   color c;
   float speed = 10.0;
+  boolean active = true;
 
   Wave(float startPos, int type, float wavelength, float x, float y, float amp){
     points = new ArrayList<Point>();
@@ -25,10 +26,30 @@ class Wave {
     originalPos = new PVector(startPos, 0);
   }
 
+  void active() {
+    if (WAVE_TYPE == PLANAR) {
+      boolean allOff = true;
+      for (Point p : points) {
+        if (p.getX() < width) {
+          allOff = false;
+        }
+      }
+      active = !allOff;
+    }
+    else {
+      boolean allOff = true;
+      for (Point p : points) {
+        if (p.getX() >= 0 && p.getX() <= width && p.getY() >= 0 && p.getY() < height) {
+          allOff = false;
+        }
+      }
+      active = !allOff;
+    }
+  }
   ArrayList<Point> getPoints() {
     return points;
   }
-  
+
   void updateWavelength(float newWavelength) {
     this.wavelength = newWavelength;
 
@@ -36,7 +57,7 @@ class Wave {
     float r = 0.0;
     float g = 0.0;
     float b = 0.0;
-  
+
     if (w >= 380 && w < 390) {
       r = 0.3 * (390 - w) / (390 - 380);
       b = 1.0;
@@ -64,17 +85,19 @@ class Wave {
     else if (w >= 622 && w <= 782) {
       r = 1.0;
     }
-  
+
     c = color(r * 255, g * 255, b * 255);
   }
-  
+
   float getAmp(float x, float y) {
     float totalAmp = 0;
     for (Point p : points) {
-      float dist = dist(p.getX(), p.getY(), x, y);
+      if (p == null) continue;
+      float dist = dist(p.getX(), p.getY(), x,y);
       float phase = (dist / wavelength) * TWO_PI;
       totalAmp += p.getAmp() / sqrt(dist) * sin(phase);
     }
+    if (Float.isNaN(totalAmp)) return 0;
     return totalAmp;
   }
 
@@ -91,26 +114,26 @@ class Wave {
     float pos = points.get(0).getX();
     return pos >= width/2;
   }
-  
+
   void changeType() {
     WAVE_TYPE = SPHERICAL;
     int numPoints = points.size();
     points.clear();
-  
+
     // reduce amplitude after diffraction
     if (amp > 0) {
       amp = 5;
     } else {
       amp = -5;
     }
-  
+
     if (MODE == SINGLE_SLIT) {
       for (int i = 0; i < numPoints; i++) {
         Point point = new Point(width / 2 + 20, height / 2, 10, amp);
         point.velocity.rotate(HALF_PI);
         points.add(point);
       }
-  
+
       int k = 1;
       for (int i = 0; i < points.size(); i++) {
         Point point = points.get(i);
@@ -118,7 +141,7 @@ class Wave {
         k++;
       }
     }
-  
+
     if (MODE == DOUBLE_SLIT) {
       for (int i = 0; i < numPoints; i++) {
         Point point;
@@ -130,7 +153,7 @@ class Wave {
         point.velocity.rotate(HALF_PI);
         points.add(point);
       }
-  
+
       int k = 1;
       for (int i = 0; i < points.size(); i += 2) {
         Point first = points.get(i);
@@ -141,7 +164,7 @@ class Wave {
       }
     }
   }
-  
+
   void display() {
     blendMode(REPLACE);
     float opacity = 255;
