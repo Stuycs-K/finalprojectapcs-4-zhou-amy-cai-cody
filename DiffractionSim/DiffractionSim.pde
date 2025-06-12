@@ -88,6 +88,7 @@ color wavelengthToColor(float w) {
 
 void draw(){
   background(0);
+  
 
   float frequency = cp5.getController("Frequency").getValue() * 1e14;
   float w = (3e8 / frequency) * 1e9;

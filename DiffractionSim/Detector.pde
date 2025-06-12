@@ -21,15 +21,17 @@ class Detector {
       float amp = w.getAmp(distance, y);
       totalAmp += amp;
     }
-    if (count == 0) return 0;
-    float ans = totalAmp / count;
+    return totalAmp * totalAmp;
+    //println(totalAmp);
+    //if (count == 0) return 0;
+    //float ans = totalAmp / count;
     //println(ans);
-    if (totalAmp >= 0) {
-      println(sq(ans));
-      return sq(ans);
-    }
-    println(-sq(ans));
-    return -sq(ans);
+    //if (totalAmp >= 0) {
+    //  //println(sq(a));
+    //  return sq(totalAmp);
+    //}
+    //println(-sq(ans));
+    //return -sq(totalAmp);
     //return sq(totalAmp);
   }
 
@@ -58,7 +60,7 @@ class Detector {
       }
     }
     for (int y = 0; y < height; y += 1) {
-      stroke(c, map(getIntensity(y), minIntensity, maxIntensity, 0,255));
+      stroke(c, map(getIntensity(y), minIntensity, maxIntensity, 0, 1));
       line(distance - 50, y, distance, y);
     }
   }
