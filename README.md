@@ -14,4 +14,4 @@ To switch between single and double slit mode, press the '1' and '2' keys. This 
 
 The 'p' key can be pressed to pause the simulation as the user wishes.
 
-DEMONSTRATION [VIDEO] (https://www.youtube.com/watch?v=cwZ0soV447o)
+DEMONSTRATION [VIDEO](https://www.youtube.com/watch?v=cwZ0soV447o)
