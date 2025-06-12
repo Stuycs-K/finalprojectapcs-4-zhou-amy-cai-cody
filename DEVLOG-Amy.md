@@ -41,9 +41,20 @@ This document must be updated daily every time you finish a work session.
 ### 2025-06-04 Continued wave development
 - Corrected errors in wave class from 6/3 work
 
-## 2025-06-05 Calculations developed for Detector class
+### 2025-06-05 Calculations developed for Detector class
 - I spent 1 hour out of class working on the Detector class
 - Worked on creating equations to model interference, implemented class, experimented with settings
+
+### 2025-06-06
+- Continued modifying detector to have appropriate settings
+- Corrected detector methods, 1 class period 
+
+### 2025-06-10
+- Two hours out of class modeling detector class correctly
+
+### 2025-06-11 
+- Four  hours spent out of class dealing with code errors and modeling detector 
+- Detector methods re-written, made appropriate appearance modes
 
 I believe this document accurately reflects the contributions of my teamate.
 - Cody
