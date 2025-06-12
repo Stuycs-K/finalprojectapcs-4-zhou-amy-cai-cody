@@ -63,7 +63,7 @@ class Detector {
       }
     }
     for (int y = 0; y < height; y += 1) {
-      stroke(c, map(getIntensity(y), minIntensity, maxIntensity, 0, 1));
+      stroke(c, map(getIntensity(y), 0, maxIntensity, 0, 1));
       line(distance - 50, y, distance, y);
     }
   }
