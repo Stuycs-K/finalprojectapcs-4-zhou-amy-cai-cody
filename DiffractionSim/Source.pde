@@ -8,9 +8,8 @@ class Source {
     this.waveType = waveType;
   }
 
-  // filler values for wave
-  Wave generateWave(float x, float y, float wavelength) {
-    Wave wave = new Wave(xpos, waveType, x, y, wavelength);
+  Wave generateWave(float x, float y, float wavelength, float amp) {
+    Wave wave = new Wave(xpos, waveType, x, y, wavelength, amp);
     return wave;
   }
 
