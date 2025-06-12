@@ -19,12 +19,19 @@ class Detector {
     }
     for (Wave w : waves) {
       if (!w.active) continue;
-      float amp = w.getAmp(distance - 1, y);
+      float amp = w.getAmp(distance, y);
       totalAmp += amp;
       count++;
     }
     if (count == 0) return 0;
-    return sq(totalAmp / count);
+    float ans = totalAmp / count;
+    //println(ans);
+    if (totalAmp >= 0) {
+      println(sq(ans));
+      return sq(ans);
+    }
+    println(-sq(ans));
+    return -sq(ans);
   }
 
   boolean isActive() {
@@ -40,19 +47,19 @@ class Detector {
 
   void display() {
     if (!isActive()) return;
-    float[] intensities = new float[height];
-    float maxIntensity = 0;
-    for (int y = 0; y < height; y += 1) {
+    float maxIntensity = getIntensity(0);
+    float minIntensity = getIntensity(0);
+    for (int y = 0; y < height; y += 10) {
       float intensity = getIntensity(y);
-      intensities[y] = intensity;
       if (intensity > maxIntensity) {
         maxIntensity = intensity;
       }
+      if (intensity < maxIntensity) {
+        minIntensity = intensity;
+      }
     }
     for (int y = 0; y < height; y += 1) {
-      float brightness = map(intensities[y], 0, maxIntensity, 0, 255);
-      strokeWeight(5);
-      stroke(c, brightness * 0.9);
+      stroke(c, map(getIntensity(y), minIntensity, maxIntensity, 0,255));
       line(distance - 50, y, distance, y);
     }
   }
