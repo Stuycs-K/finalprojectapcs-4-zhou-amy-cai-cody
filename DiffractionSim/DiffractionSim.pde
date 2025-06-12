@@ -80,11 +80,11 @@ void draw(){
   background(0);
 
   float frequency = cp5.getController("Frequency").getValue() * 1e14;
-  float wavelength = (3e8 / frequency) * 1e9;
-  this.wavelength = wavelength;
+  float w = (3e8 / frequency) * 1e9;
+  this.wavelength = w;
 
   if (!paused && frameCount % 10 == 0) {
-    Wave wave = sources.get(0).generateWave(0, height/2, wavelength);
+    Wave wave = sources.get(0).generateWave(0, height/2, w);
     waves.add(wave);
   }
 
@@ -107,6 +107,8 @@ void draw(){
     wave.display();
   }
   slit.display();
+  color c = wavelengthToColor(w);
+  detector.c = c;
   detector.display();
 
   // input box
