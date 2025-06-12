@@ -42,8 +42,7 @@ void setup(){
   // setting up waves
   waves = new ArrayList<Wave>();
   //setting up detector
-  color c = wavelengthToColor(wavelength);
-  detector = new Detector(width, c, waves);
+  detector = new Detector(width, wavelengthToColor(wavelength), waves);
   detector.display();
 
   // displaying initial state
@@ -92,6 +91,11 @@ void draw(){
   for (int i = 0; i < waves.size(); i++) {
     Wave wave = waves.get(i);
     wave.updateWavelength(wavelength);
+    wave.active();
+    if (!wave.active) {
+      waves.remove(i);
+      i--;
+    }
     if (!paused) {
       if (frameCount >= i * 5) {
         wave.propagate();
@@ -103,7 +107,6 @@ void draw(){
     wave.display();
   }
   slit.display();
-  color c = wavelengthToColor(wavelength);
   detector.display();
 
   // input box
