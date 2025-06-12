@@ -11,6 +11,7 @@ class Wave {
   float amp;
   color c;
   float speed = 10.0;
+  boolean active = true;
 
   Wave(float startPos, int type, float wavelength, float x, float y){
     points = new ArrayList<Point>();
@@ -27,6 +28,26 @@ class Wave {
     WAVE_TYPE = type;
   }
 
+  void active() {
+    if (WAVE_TYPE == PLANAR) {
+      boolean allOff = true;
+      for (Point p : points) {
+        if (p.getX() < width) {
+          allOff = false;
+        }
+      }
+      active = !allOff;
+    }
+    else {
+      boolean allOff = true;
+      for (Point p : points) {
+        if (p.getX() >= 0 && p.getX() <= width && p.getY() >= 0 && p.getY() < height) {
+          allOff = false;
+        }
+      }
+      active = !allOff;
+    }
+  }
   ArrayList<Point> getPoints() {
     return points;
   }
