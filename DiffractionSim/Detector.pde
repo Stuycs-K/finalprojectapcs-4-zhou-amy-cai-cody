@@ -11,7 +11,6 @@ class Detector {
 
   float getIntensity(float y) {
     float totalAmp = 0;
-    int count = 0;
     for (int i = waves.size() - 1; i >= 0; i--) {
       if (!waves.get(i).active) {
         waves.remove(i);
@@ -21,7 +20,6 @@ class Detector {
       if (!w.active) continue;
       float amp = w.getAmp(distance, y);
       totalAmp += amp;
-      count++;
     }
     if (count == 0) return 0;
     float ans = totalAmp / count;
@@ -32,6 +30,7 @@ class Detector {
     }
     println(-sq(ans));
     return -sq(ans);
+    //return sq(totalAmp);
   }
 
   boolean isActive() {

@@ -4,7 +4,7 @@ This document must be updated daily every time you finish a work session.
 
 ## Amy Zhou
 
-### 2025-05-19 Description & Developmental Stages 
+### 2025-05-19 Description & Developmental Stages
 - One class period spent on description of prototype
 - 20 minutes spent on creating phases/stages of prototype
 
@@ -29,7 +29,7 @@ This document must be updated daily every time you finish a work session.
 ### 2025-05-30 - Modified displaying Interference and Detector classes
 - Class period spent making detector and interference classes display patterns
 
-### 2025-06-01 - Moved project forwards to MVP 
+### 2025-06-01 - Moved project forwards to MVP
 - 3 hours spent on editing classes and methods to make a functional user interface
 
 ### 2025-06-02 Worked on re-developing wave
@@ -44,3 +44,6 @@ This document must be updated daily every time you finish a work session.
 ## 2025-06-05 Calculations developed for Detector class
 - I spent 1 hour out of class working on the Detector class
 - Worked on creating equations to model interference, implemented class, experimented with settings
+
+I believe this document accurately reflects the contributions of my teamate.
+- Cody
