@@ -36,30 +36,39 @@ class Wave {
     this.wavelength = newWavelength;
 
     float w = newWavelength;
-    float r = 0;
-    float g = 0;
-    float b = 0;
-
-    if (380 <= w && w < 400) {
-      r = 0.3 * (-(w - 440) / (440 - 380));
+    float r = 0.0;
+    float g = 0.0;
+    float b = 0.0;
+  
+    if (w >= 380 && w < 390) {
+      r = 0.3 * (390 - w) / (390 - 380);
       b = 1.0;
     }
-    else if (w < 490) {
-      g = (w-440) / (490-440);
+    else if (w >= 390 && w < 455) {
       b = 1.0;
+      g = (w - 390) / (455 - 390);
     }
-    else if (w < 510) {
+    else if (w >= 455 && w < 490) {
       g = 1.0;
-      b = -(w-510)/(510-490);
+      b = (490 - w) / (490 - 455);
     }
-    else if (w < 580) {
-      r = (w-510) / (580-510);
+    else if (w >= 490 && w < 577) {
       g = 1.0;
-      }
-    else {
+      r = (w - 490) / (577 - 490);
+    }
+    else if (w >= 577 && w < 596) {
+      r = 1.0;
+      g = 1.0 - ((w - 577) / (596 - 577));
+    }
+    else if (w >= 596 && w < 622) {
+      r = 1.0;
+      g = 0.5 * (1.0 - (w - 596) / (622 - 596));
+    }
+    else if (w >= 622 && w <= 782) {
       r = 1.0;
     }
-    c = color(r*255, g*255, b*255);
+  
+    c = color(r * 255, g * 255, b * 255);
   }
   float getAmp (float x, float y) {
     //if (WAVE_TYPE == PLANAR) {
