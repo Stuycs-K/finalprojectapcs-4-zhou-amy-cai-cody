@@ -51,41 +51,55 @@ void setup(){
 
 }
 
-  color wavelengthToColor(float w) {
-    float r = 0.0;
-    float g = 0.0;
-    float b = 0.0;
-    if (380 <= w && w < 400) {
-      r = 0.3 * (-(w - 440) / (440 - 380));
-      b = 1.0;
-    }
-    else if (w < 490) {
-      g = (w-440) / (490-440);
-      b = 1.0;
-    }
-    else if (w < 510) {
-      g = 1.0;
-      b = -(w-510)/(510-490);
-    }
-    else if (w < 580) {
-      r = (w-510) / (580-510);
-      g = 1.0;
-    }
-    else {
-      r = 1.0;
-    }
-    return color(r*255, g*255, b*255);
+color wavelengthToColor(float w) {
+  float r = 0.0;
+  float g = 0.0;
+  float b = 0.0;
+
+  if (w >= 380 && w < 390) {
+    r = 0.3 * (390 - w) / (390 - 380);
+    b = 1.0;
   }
+  else if (w >= 390 && w < 455) {
+    b = 1.0;
+    g = (w - 390) / (455 - 390);
+  }
+  else if (w >= 455 && w < 490) {
+    g = 1.0;
+    b = (490 - w) / (490 - 455);
+  }
+  else if (w >= 490 && w < 577) {
+    g = 1.0;
+    r = (w - 490) / (577 - 490);
+  }
+  else if (w >= 577 && w < 596) {
+    r = 1.0;
+    g = 1.0 - ((w - 577) / (596 - 577));
+  }
+  else if (w >= 596 && w < 622) {
+    r = 1.0;
+    g = 0.5 * (1.0 - (w - 596) / (622 - 596));
+  }
+  else if (w >= 622 && w <= 782) {
+    r = 1.0;
+  }
+
+  return color(r * 255, g * 255, b * 255);
+}
 
 void draw(){
   background(0);
 
   float frequency = cp5.getController("Frequency").getValue() * 1e14;
-  float wavelength = (3e8 / frequency) * 1e9;
-  this.wavelength = wavelength;
+  float w = (3e8 / frequency) * 1e9;
+  wavelength = w;
 
-  if (!paused && frameCount % 10 == 0) {
-    Wave wave = sources.get(0).generateWave(0, height/2, wavelength);
+  if (!paused && frameCount % 8 == 0) {
+    float amp = 10;
+    if (waves.size() % 2 == 0) {
+      amp = -10; 
+    } 
+    Wave wave = sources.get(0).generateWave(0, height/2, w, amp);
     waves.add(wave);
   }
 
@@ -103,7 +117,8 @@ void draw(){
     wave.display();
   }
   slit.display();
-  color c = wavelengthToColor(wavelength);
+  color c = wavelengthToColor(w);
+  detector.c = c;
   detector.display();
 
   // input box

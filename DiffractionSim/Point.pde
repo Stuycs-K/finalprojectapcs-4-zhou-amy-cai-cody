@@ -2,14 +2,12 @@ class Point {
   PVector position, velocity;
   float maxAmp;
   float amplitude;
-  color c;
 
-  Point (float x, float y, float speed, float amplitude, color c) {
+  Point (float x, float y, float speed, float amplitude) {
     position = new PVector(x, y);
     velocity = new PVector(speed, 0);
     this.amplitude = amplitude;
     this.maxAmp = amplitude;
-    this.c = c;
   }
 
   void move() {
