@@ -42,8 +42,7 @@ void setup(){
   // setting up waves
   waves = new ArrayList<Wave>();
   //setting up detector
-  color c = wavelengthToColor(wavelength);
-  detector = new Detector(width, c, waves);
+  detector = new Detector(width, wavelengthToColor(wavelength), waves);
   detector.display();
 
   // displaying initial state
@@ -97,8 +96,8 @@ void draw(){
   if (!paused && frameCount % 8 == 0) {
     float amp = 10;
     if (waves.size() % 2 == 0) {
-      amp = -10; 
-    } 
+      amp = -10;
+    }
     Wave wave = sources.get(0).generateWave(0, height/2, w, amp);
     waves.add(wave);
   }
@@ -106,6 +105,11 @@ void draw(){
   for (int i = 0; i < waves.size(); i++) {
     Wave wave = waves.get(i);
     wave.updateWavelength(wavelength);
+    wave.active();
+    if (!wave.active) {
+      waves.remove(i);
+      i--;
+    }
     if (!paused) {
       if (frameCount >= i * 5) {
         wave.propagate();
