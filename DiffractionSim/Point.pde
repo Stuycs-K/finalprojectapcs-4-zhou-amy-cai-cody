@@ -26,9 +26,4 @@ class Point {
     return amplitude;
   }
 
-  void setAmplitude(float amp) {
-    this.amplitude = amp;
-  }
-
-
 }

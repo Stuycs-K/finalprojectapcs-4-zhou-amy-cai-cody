@@ -22,17 +22,6 @@ class Detector {
       totalAmp += amp;
     }
     return totalAmp * totalAmp;
-    //println(totalAmp);
-    //if (count == 0) return 0;
-    //float ans = totalAmp / count;
-    //println(ans);
-    //if (totalAmp >= 0) {
-    //  //println(sq(a));
-    //  return sq(totalAmp);
-    //}
-    //println(-sq(ans));
-    //return -sq(totalAmp);
-    //return sq(totalAmp);
   }
 
   boolean isActive() {
@@ -67,4 +56,5 @@ class Detector {
       line(distance - 50, y, distance, y);
     }
   }
+  
 }

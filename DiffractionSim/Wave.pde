@@ -10,7 +10,6 @@ class Wave {
   float wavelength;
   float amp;
   color c;
-  float speed = 10.0;
   boolean active = true;
 
   Wave(float startPos, int type, float wavelength, float x, float y, float amp){
@@ -19,7 +18,7 @@ class Wave {
     this.wavelength = wavelength;
     this.amp = amp;
     for (int i = 0; i < height; i+=10) {
-      Point point = new Point(startPos, i, speed, amp);
+      Point point = new Point(startPos, i, 10, amp);
       points.add(point);
     }
     WAVE_TYPE = type;
@@ -46,14 +45,11 @@ class Wave {
       active = !allOff;
     }
   }
-  ArrayList<Point> getPoints() {
-    return points;
-  }
+  
+  void updateWavelength(float newW) {
+    this.wavelength = newW;
 
-  void updateWavelength(float newWavelength) {
-    this.wavelength = newWavelength;
-
-    float w = newWavelength;
+    float w = newW;
     float r = 0.0;
     float g = 0.0;
     float b = 0.0;
@@ -202,6 +198,5 @@ class Wave {
       }
     }
   }
-
 
 }

@@ -4,11 +4,11 @@ ControlP5 cp5;
 float sliderValue = 4;
 
 static int MODE;
-static int SINGLE_SLIT = 1;
-static int DOUBLE_SLIT = 2;
+static final int SINGLE_SLIT = 1;
+static final int DOUBLE_SLIT = 2;
 Detector detector;
 Slit slit;
-ArrayList<Source> sources;
+Source source;
 ArrayList<Wave> waves;
 boolean paused = false;
 float wavelength;
@@ -35,9 +35,8 @@ void setup(){
   MODE = SINGLE_SLIT;
   slit = new Slit(MODE, 1);
 
-  // setting up sources
-  sources = new ArrayList<Source>();
-  sources.add(new Source(0, height/2, 0));
+  // setting up source
+  source = new Source(0, height/2, 0);
 
   // setting up waves
   waves = new ArrayList<Wave>();
@@ -47,6 +46,58 @@ void setup(){
 
   // displaying initial state
   slit.display();
+
+}
+
+void draw(){
+  background(0);
+  
+
+  float frequency = cp5.getController("Frequency").getValue() * 1e14;
+  float w = (3e8 / frequency) * 1e9;
+  wavelength = w;
+
+  if (!paused && frameCount % 5 == 0) {
+    float amp = 10;
+    if ((frameCount/5) % 2 == 0) {
+      amp = -10;
+    }
+    Wave wave = source.generateWave(0, height/2, w, amp);
+    waves.add(wave);
+  }
+
+  for (int i = 0; i < waves.size(); i++) {
+    Wave wave = waves.get(i);
+    wave.updateWavelength(wavelength);
+    wave.active();
+    if (!wave.active) {
+      waves.remove(i);
+      i--;
+    }
+    if (!paused) {
+      if (frameCount >= i * 5) {
+        wave.propagate();
+      }
+      if (wave.hitSlit()) {
+        wave.changeType();
+      }
+    }
+    wave.display();
+  }
+  slit.display();
+  color c = wavelengthToColor(w);
+  detector.c = c;
+  detector.display();
+
+  // input box
+  noStroke();
+  fill(255);
+  rectMode(CORNER);
+  rect(0, 0, 120, 50);
+
+  fill(0);
+  textSize(10);
+  text("Frequency: " + nf(cp5.getController("Frequency").getValue(), 1, 2) + "* 10^14", 5, 10);
 
 }
 
@@ -86,58 +137,6 @@ color wavelengthToColor(float w) {
   return color(r * 255, g * 255, b * 255);
 }
 
-void draw(){
-  background(0);
-  
-
-  float frequency = cp5.getController("Frequency").getValue() * 1e14;
-  float w = (3e8 / frequency) * 1e9;
-  wavelength = w;
-
-  if (!paused && frameCount % 5 == 0) {
-    float amp = 10;
-    if ((frameCount/5) % 2 == 0) {
-      amp = -10;
-    }
-    Wave wave = sources.get(0).generateWave(0, height/2, w, amp);
-    waves.add(wave);
-  }
-
-  for (int i = 0; i < waves.size(); i++) {
-    Wave wave = waves.get(i);
-    wave.updateWavelength(wavelength);
-    wave.active();
-    if (!wave.active) {
-      waves.remove(i);
-      i--;
-    }
-    if (!paused) {
-      if (frameCount >= i * 5) {
-        wave.propagate();
-      }
-      if (wave.hitSlit()) {
-        wave.changeType();
-      }
-    }
-    wave.display();
-  }
-  slit.display();
-  color c = wavelengthToColor(w);
-  detector.c = c;
-  detector.display();
-
-  // input box
-  noStroke();
-  fill(255);
-  rectMode(CORNER);
-  rect(0, 0, 120, 50);
-
-  fill(0);
-  textSize(10);
-  text("Frequency: " + nf(cp5.getController("Frequency").getValue(), 1, 2) + "* 10^14", 5, 10);
-
-}
-
 void keyPressed() {
 
   if (key == 'p') {
@@ -154,8 +153,7 @@ void keyPressed() {
 }
 
 void reset() {
-  sources = new ArrayList<Source>();
-  sources.add(new Source(0, height/2, 0));
+  source = new Source(0, height/2, 0);
   waves = new ArrayList<Wave>();
   slit = new Slit(MODE, 1);
   detector = new Detector(width, wavelengthToColor(wavelength), waves);
