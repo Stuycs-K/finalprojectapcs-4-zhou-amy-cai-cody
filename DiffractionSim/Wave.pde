@@ -13,13 +13,12 @@ class Wave {
   float speed = 10.0;
   boolean active = true;
 
-  Wave(float startPos, int type, float wavelength, float x, float y, float amp){
+  Wave(float startPos, int type, float wavelength, float x, float y){
     points = new ArrayList<Point>();
     position = new PVector(x, y);
-    this.amp = amp;
     this.wavelength = wavelength;
     for (int i = 0; i < height; i+=10) {
-      Point point = new Point(startPos, i, speed, amp);
+      Point point = new Point(startPos, i, speed, 10);
       points.add(point);
     }
     WAVE_TYPE = type;
@@ -167,18 +166,14 @@ class Wave {
 
   void display() {
     blendMode(REPLACE);
-    float opacity = 255;
-    if (amp < 0) {
-      opacity = 100;
-    }
     if (WAVE_TYPE == SPHERICAL) {
       Point point = points.get(0);
       float r = dist(point.getX(),point.getY(),originalPos.x, originalPos.y);
       float factor = 35/max(1,r*0.1);
-      stroke(c, factor * opacity);
+      stroke(c, factor*255);
     }
     else {
-      stroke(c, opacity);
+      stroke(c);
     }
     strokeWeight(10);
     if (MODE == SINGLE_SLIT) {

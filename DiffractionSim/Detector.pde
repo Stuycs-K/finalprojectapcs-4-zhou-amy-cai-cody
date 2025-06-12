@@ -2,29 +2,32 @@ class Detector {
   float distance;
   ArrayList<Wave> waves;
   color c;
-  Detector (float distance, color c, ArrayList<Wave> waves) {
+
+  Detector(float distance, color c, ArrayList<Wave> waves) {
     this.distance = distance;
     this.c = c;
     this.waves = waves;
   }
 
-  float getIntensity(float y){
-    float amp = 0;
-    for (int i = waves.size()-1; i>= 0; i--) {
+  float getIntensity(float y) {
+    float totalAmp = 0;
+    int count = 0;
+    for (int i = waves.size() - 1; i >= 0; i--) {
       if (!waves.get(i).active) {
         waves.remove(i);
       }
     }
     for (Wave w : waves) {
       if (!w.active) continue;
-      amp += w.getAmp(distance,y);
-      //println(amp);
+      float amp = w.getAmp(distance - 1, y);
+      totalAmp += amp;
+      count++;
     }
-    if (Float.isNaN(amp)) return 0;
-    return amp * amp;
+    if (count == 0) return 0;
+    return sq(totalAmp / count);
   }
-  
-  boolean isActive () {
+
+  boolean isActive() {
     for (Wave w : waves) {
       for (Point p : w.points) {
         if (p.getX() >= distance - 50) {
@@ -34,22 +37,23 @@ class Detector {
     }
     return false;
   }
-  
+
   void display() {
     if (!isActive()) return;
+    float[] intensities = new float[height];
     float maxIntensity = 0;
-    for (int y = 0; y < height; y+=10) {
+    for (int y = 0; y < height; y += 1) {
       float intensity = getIntensity(y);
+      intensities[y] = intensity;
       if (intensity > maxIntensity) {
         maxIntensity = intensity;
       }
     }
-    for (int y = 0; y < height; y+=1) {
-      float intensity = getIntensity(y);
+    for (int y = 0; y < height; y += 1) {
+      float brightness = map(intensities[y], 0, maxIntensity, 0, 255);
       strokeWeight(5);
-      float brightness = map(intensity,0,maxIntensity,0,255);
-      stroke (c, brightness*0.90);
-      line(distance-50,y,distance,y);
+      stroke(c, brightness * 0.9);
+      line(distance - 50, y, distance, y);
     }
   }
 }
