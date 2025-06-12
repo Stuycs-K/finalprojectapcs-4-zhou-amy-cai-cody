@@ -10,7 +10,13 @@ class Detector {
 
   float getIntensity(float y){
     float amp = 0;
+    for (int i = waves.size()-1; i>= 0; i--) {
+      if (!waves.get(i).active) {
+        waves.remove(i);
+      }
+    }
     for (Wave w : waves) {
+      if (!w.active) continue;
       amp += w.getAmp(distance,y);
       //println(amp);
     }
