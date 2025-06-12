@@ -46,3 +46,6 @@ Tried to use the array of points and create a gradient between peaks of the wave
 ### 2025-06-10/11 - Working on Displaying Interference Pattern
 
 Reverted to old version of displaying waves as collections of points with associated position and velocity PVectors. Trying to get the Detector class to work and display the interference pattern.
+
+I believe this document accurately reflects the contributions of my teamate
+- Amy
